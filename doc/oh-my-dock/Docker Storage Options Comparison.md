@@ -1,5 +1,5 @@
 
-# Docker Storage Options Comparison
+
 
 | Storage Feature | Docker Volumes | Bind Mounts | Container Writable Layer |
 | :--- | :--- | :--- | :--- |
