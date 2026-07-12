@@ -13,7 +13,7 @@
 * **Docker**: It is a container engine that uses the Linux Kernel features like **namespaces** and **control groups**, to create containers on top of an operating system. So you can call it **OS-level virtualization**.
 * **Containers**: Object of an image. Isolated process (Not a mini VM or smthing), that has it's own configurations to run a specific application (it's 0-application layer virtualization).
 * **Image**: Class or a package, that has the necessary configurations and layers to run a container. It's a **read-only**, immutable template made of layered system (**multiple read-only filesystem layers and configuration files metadata**), not a typical file that you can read.
-* **Dockerfile**: Commands, script, text-based doc, that it's used to make an image. See [[How to write Dockerfile]] .
+* **Dockerfile**: Commands, script, text-based doc, that it's used to make an image. See [How to write Dockerfile](./How-to-write-Dockerfile.md) .
 
 ```
 Dockerfile ---> image ---> container
@@ -54,14 +54,14 @@ Explanation:
 
 
 
-- **Image layers / Union filesystem (OverlayFS)**: An image isn't one blob, it's a stack of read-only layers, one per **Dockerfile** instruction (`FROM`, `RUN`, `COPY`, etc.) see [here](https://docs.docker.com/reference/dockerfile/). Docker merges them into a single view using a union file-system. This is _why_ **builds cache**: if a layer's instruction and its inputs haven't changed, Docker reuses the cached layer instead of rebuilding it. I can see the Image layer throw `docker image histroy`,[See more](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/), Also: [[Understanding Docker -- File System, Resources, and chroot]] .
+- **Image layers / Union filesystem (OverlayFS)**: An image isn't one blob, it's a stack of read-only layers, one per **Dockerfile** instruction (`FROM`, `RUN`, `COPY`, etc.) see [here](https://docs.docker.com/reference/dockerfile/). Docker merges them into a single view using a union file-system. This is _why_ **builds cache**: if a layer's instruction and its inputs haven't changed, Docker reuses the cached layer instead of rebuilding it. I can see the Image layer throw `docker image histroy`,[See more](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/), Also: [Understanding Docker -- File System, Resources, and chroot](./Understanding_Docker_File-System_Resources_and_chroot.md) .
 - **Build cache**: Docker builds top-down and reuses any layer whose instruction + [context](https://docs.docker.com/build/concepts/context/#what-is-a-build-context) hasn't changed since the last build. This is why you `COPY package.json` and run `npm install` _before_ copying the rest of your source code, dependency layers stay cached even when your app code changes.
 - **Multi-stage build**: A **Dockerfile** with multiple `FROM` statements [see](https://docs.docker.com/reference/dockerfile/#from=), where you build/compile in one stage and copy only the final artifact into a slim final stage. Keeps final images small — build tools never ship in production.
 - **.dockerignore**: Same idea as `.gitignore`, excludes files from the build context sent to the daemon (keeps builds fast, avoids leaking secrets/`.git`/`node_modules` into the image).
 
 ## Container lifecycle & process model
 
-- **PID 1 in a container**: The first process a container runs (or any Linux system runs) becomes PID 1,  same as `init` on a real Linux boot. This is a big deal for **Inception** project: PID 1 doesn't get default signal handling (Linux kernel forces it to ignore signals), so if your main process doesn't properly handle `SIGTERM`, `docker stop` won't gracefully kill it (it'll hang until forced). This is why some setups use a tiny init wrapper like `tini`. Read [[PID-1 Handling for container termination]] .
+- **PID 1 in a container**: The first process a container runs (or any Linux system runs) becomes PID 1,  same as `init` on a real Linux boot. This is a big deal for **Inception** project: PID 1 doesn't get default signal handling (Linux kernel forces it to ignore signals), so if your main process doesn't properly handle `SIGTERM`, `docker stop` won't gracefully kill it (it'll hang until forced). This is why some setups use a tiny init wrapper like `tini`. Read [PID-1 Handling for container termination](./PID-1-Handling-for-container-termination.md) .
 - **Container states**: `created` → `running` → (`paused`) → `exited`/`dead`. A stopped container isn't gone, its filesystem and metadata still exist until `docker rm`.
 - **Restart policies**: `--restart=on-failure`, `always`, `unless-stopped`. Controls whether Docker auto-restarts a container after it exits or the daemon restarts. Relevant for Inception since services should stay up (`restart: on-failure` or `always` in compose).
 - **Foreground vs daemonized process inside a container**: A container exits the moment its PID 1 process exits. This is why you can't just run `service nginx start` inside a container and expect it to stay alive, that command daemonizes and returns immediately, PID 1 exits, container dies. You need the actual binary running in the foreground (e.g. `nginx -g "daemon off;"`, `mysqld_safe`, `php-fpm -F`). This trips up almost everyone on Inception at first.
@@ -69,7 +69,7 @@ Explanation:
 ## Networking
 
 - **Bridge network**: Docker's default network driver, creates a **private virtual network** on the host, containers get internal IPs, and Docker's embedded DNS resolves other containers by service/container name. This is what docker-compose gives you automatically.
-- **Bind mount vs (named) volume**: A **bind mount** maps an exact host path into the container (`-v /home/user/data:/var/data`), you control the host path directly. A **named volume** (`-v db_data:/var/lib/mysql`) is managed entirely by Docker under `/var/lib/docker/volumes/`, and is the more **portable/recommended** option. Inception typically requires named volumes bound to a specific host path (`/home/<login>/data/...`). see more [[Docker Storage Options Comparison]]
+- **Bind mount vs (named) volume**: A **bind mount** maps an exact host path into the container (`-v /home/user/data:/var/data`), you control the host path directly. A **named volume** (`-v db_data:/var/lib/mysql`) is managed entirely by Docker under `/var/lib/docker/volumes/`, and is the more **portable/recommended** option. Inception typically requires named volumes bound to a specific host path (`/home/<login>/data/...`). see more [Docker Storage Options Comparison](./Docker-Storage-Options-Comparison.md)
 
 ## Registry-adjacent
 
