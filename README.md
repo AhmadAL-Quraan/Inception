@@ -8,14 +8,9 @@
 
 </div>
 
-## Flow 
-
-![Diagram](./pic/diagram.png)
-
-
 ## Doc 
 
-[Link](./doc/)
+[Link](https://ahmadal-quraan.github.io/Inception/)
 
 ## Resources
 
