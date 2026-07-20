@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../Understanding_Docker_File-System_Resources_and_chroot.md/">
+        <link rel="prev" href="../Understanding_Docker_File-System_Resources_and_chroot/">
       
       
       
@@ -409,14 +409,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="md-nav__link">
+      <a href="../Understanding_Docker_File-System_Resources_and_chroot/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Understanding Docker File System Resources and chroot.md
+    Understanding Docker File System Resources and chroot
   
 
     
@@ -673,7 +673,7 @@
 <li><strong>Docker</strong>: It is a container engine that uses the Linux Kernel features like <strong>namespaces</strong> and <strong>control groups</strong>, to create containers on top of an operating system. So you can call it <strong>OS-level virtualization</strong>.</li>
 <li><strong>Containers</strong>: Object of an image. Isolated process (Not a mini VM or smthing), that has it's own configurations to run a specific application (it's application layer virtualization).</li>
 <li><strong>Image</strong>: Class or a package, that has the necessary configurations and layers to run a container. It's a <strong>read-only</strong>, immutable template made of layered system (<strong>multiple read-only filesystem layers and configuration files metadata</strong>), not a typical file that you can read.</li>
-<li><strong>Dockerfile</strong>: Commands, script, text-based doc, that it's used to make an image. See [[How_to_write_Dockerfile]] .</li>
+<li><strong>Dockerfile</strong>: Commands, script, text-based doc, that it's used to make an image. See <a href="../How_to_write_Dockerfile/">How_to_write_Dockerfile</a> .</li>
 </ul>
 <div class="highlight"><pre><span></span><code>Dockerfile ---&gt; image ---&gt; container
 </code></pre></div>
@@ -715,14 +715,14 @@ Ex: <code>docker.io/library/nginx:latest</code> -&gt; <code>docker.io</code>: Ho
 <p>If you have an image from one syllabus only, Ex: <code>debian:bookworm-slim</code>, <strong>debian</strong> is the image name and there is no <strong>namespace</strong> in this case, because debian is an official image provided by docker hub and the maintainers of this image.</p>
 </blockquote>
 <ul>
-<li><strong>Image layers / Union filesystem (OverlayFS)</strong>: An image isn't one blob, it's a stack of read-only layers (Filesystems on top of each other), one per <strong>Dockerfile</strong> instruction (<code>FROM</code>, <code>RUN</code>, <code>COPY</code>, etc.) see <a href="https://docs.docker.com/reference/dockerfile/">here</a>, also [[How_to_write_Dockerfile]]. Docker merges them into a single view using a union file-system. This is <em>why</em> <strong>builds cache</strong>: if a layer's instruction and its inputs haven't changed, Docker reuses the cached layer instead of rebuilding it. I can see the Image layer throw <code>docker image histroy</code>,<a href="https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/">See more</a>, Also: [[Understanding_Docker_File-System_Resources_and_chroot.md]] .</li>
+<li><strong>Image layers / Union filesystem (OverlayFS)</strong>: An image isn't one blob, it's a stack of read-only layers (Filesystems on top of each other), one per <strong>Dockerfile</strong> instruction (<code>FROM</code>, <code>RUN</code>, <code>COPY</code>, etc.) see <a href="https://docs.docker.com/reference/dockerfile/">here</a>, also <a href="../How_to_write_Dockerfile/">How_to_write_Dockerfile</a>. Docker merges them into a single view using a union file-system. This is <em>why</em> <strong>builds cache</strong>: if a layer's instruction and its inputs haven't changed, Docker reuses the cached layer instead of rebuilding it. I can see the Image layer throw <code>docker image histroy</code>,<a href="https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/">See more</a>, Also: <a href="../Understanding_Docker_File-System_Resources_and_chroot/">Understanding_Docker_File-System_Resources_and_chroot.md</a> .</li>
 <li><strong>Build cache</strong>: Docker builds top-down and reuses any layer whose instruction + <a href="https://docs.docker.com/build/concepts/context/#what-is-a-build-context">context</a> hasn't changed since the last build. This is why you <code>COPY package.json</code> and run <code>npm install</code> <em>before</em> copying the rest of your source code, dependency layers stay cached even when your app code changes.</li>
-<li><strong>Multi-stage build</strong>: A <strong>Dockerfile</strong> with multiple <code>FROM</code> statements, where you build/compile in one stage and copy only the final artifact into a slim final stage. Keeps final images small — build tools never ship in production, see [[How_to_write_Dockerfile#Multi-stage pattern|here]]</li>
+<li><strong>Multi-stage build</strong>: A <strong>Dockerfile</strong> with multiple <code>FROM</code> statements, where you build/compile in one stage and copy only the final artifact into a slim final stage. Keeps final images small — build tools never ship in production, see <a href="../How_to_write_Dockerfile/#multi-stage-pattern">here</a></li>
 <li><strong>.dockerignore</strong>: Same idea as <code>.gitignore</code>, excludes files from the build context sent to the daemon (keeps builds fast, avoids leaking secrets/<code>.git</code>/<code>node_modules</code> into the image).</li>
 </ul>
 <h2 id="container-lifecycle-process-model">Container lifecycle &amp; process model</h2>
 <ul>
-<li><strong>PID 1 in a container</strong>: The first process a container runs (or any Linux system runs) becomes PID 1,  same as <code>init</code> on a real Linux boot. This is a big deal for <strong>Inception</strong> project: PID 1 doesn't get default signal handling (Linux kernel forces it to ignore signals), so if your main process doesn't properly handle <code>SIGTERM</code>, <code>docker stop</code> won't gracefully kill it (it'll hang until forced). This is why some setups use a tiny init wrapper like <code>tini</code>. Read [[PID-1_Handling_for_container_termination]] .</li>
+<li><strong>PID 1 in a container</strong>: The first process a container runs (or any Linux system runs) becomes PID 1,  same as <code>init</code> on a real Linux boot. This is a big deal for <strong>Inception</strong> project: PID 1 doesn't get default signal handling (Linux kernel forces it to ignore signals), so if your main process doesn't properly handle <code>SIGTERM</code>, <code>docker stop</code> won't gracefully kill it (it'll hang until forced). This is why some setups use a tiny init wrapper like <code>tini</code>. Read <a href="../PID-1_Handling_for_container_termination/">PID-1_Handling_for_container_termination</a> .</li>
 <li><strong>Container states</strong>: <code>created</code> → <code>running</code> → (<code>paused</code>) → <code>exited</code>/<code>dead</code>. A stopped container isn't gone, its filesystem and metadata still exist until <code>docker rm</code>.</li>
 <li><strong>Restart policies</strong>: <code>--restart=on-failure</code>, <code>always</code>, <code>unless-stopped</code>. Controls whether Docker auto-restarts a container after it exits or the daemon restarts. Relevant for Inception since services should stay up (<code>restart: on-failure</code> or <code>always</code> in compose).</li>
 <li><strong>Foreground vs daemonized process inside a container</strong>: A container exits the moment its PID 1 process exits. This is why you can't just run <code>service nginx start</code> inside a container and expect it to stay alive, that command daemonizes and returns immediately, PID 1 exits, container dies. You need the actual binary running in the foreground (e.g. <code>nginx -g "daemon off;"</code>, <code>mysqld_safe</code>, <code>php-fpm -F</code>). This trips up almost everyone on Inception at first.</li>
@@ -730,7 +730,7 @@ Ex: <code>docker.io/library/nginx:latest</code> -&gt; <code>docker.io</code>: Ho
 <h2 id="networking">Networking</h2>
 <ul>
 <li><strong>Bridge network</strong>: Docker's default network driver, creates a <strong>private virtual network</strong> on the host, containers get internal IPs, and Docker's embedded DNS resolves other containers by service/container name. This is what docker-compose gives you automatically.</li>
-<li><strong>Bind mount vs (named) volume</strong>: A <strong>bind mount</strong> maps an exact host path into the container (<code>-v /home/user/data:/var/data</code>), you control the host path directly. A <strong>named volume</strong> (<code>-v db_data:/var/lib/mysql</code>) is managed entirely by Docker under <code>/var/lib/docker/volumes/</code>, and is the more <strong>portable/recommended</strong> option. Inception typically requires named volumes bound to a specific host path (<code>/home/&lt;login&gt;/data/...</code>). see more [[Docker_Storage_Options_Comparison]]</li>
+<li><strong>Bind mount vs (named) volume</strong>: A <strong>bind mount</strong> maps an exact host path into the container (<code>-v /home/user/data:/var/data</code>), you control the host path directly. A <strong>named volume</strong> (<code>-v db_data:/var/lib/mysql</code>) is managed entirely by Docker under <code>/var/lib/docker/volumes/</code>, and is the more <strong>portable/recommended</strong> option. Inception typically requires named volumes bound to a specific host path (<code>/home/&lt;login&gt;/data/...</code>). see more <a href="../Docker_Storage_Options_Comparison/">Docker_Storage_Options_Comparison</a></li>
 </ul>
 <h2 id="registry-adjacent">Registry-adjacent</h2>
 <ul>
