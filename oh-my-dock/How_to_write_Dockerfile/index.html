@@ -102,7 +102,7 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
             <li class="nav-item" data-bs-level="2"><a href="#main-commands" class="nav-link">Main commands</a>
@@ -134,7 +134,7 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<pre><code class="language-table-of-contents">title: 
+<div class="highlight"><pre><span></span><code>title: 
 style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
 minLevel: 0 # Include headings from the specified level
 maxLevel: 0 # Include headings up to the specified level
@@ -143,7 +143,7 @@ exclude:
 includeLinks: true # Make headings clickable
 hideWhenEmpty: false # Hide TOC if no headings are found
 debugInConsole: false # Print debug info in Obsidian console
-</code></pre>
+</code></pre></div>
 <h2 id="main-commands">Main commands</h2>
 <ul>
 <li><code>FROM</code>:picks the <strong>base image</strong> your image starts from. -&gt; first layer
@@ -173,34 +173,34 @@ is just downloading that filesystem snapshot, nothing more</li>
 </ul>
 </li>
 </ul>
-<pre><code class="language-Dockerfile">ENTRYPOINT [&quot;nginx&quot;]
-CMD [&quot;-g&quot;, &quot;daemon off;&quot;]
-</code></pre>
-<p><strong>Normal run (uses CMD defaults):</strong></p>
-<pre><code class="language-bash">docker run my-image
-# runs: nginx -g &quot;daemon off;&quot;
-</code></pre>
-<p><strong>Override CMD at runtime:</strong></p>
-<pre><code class="language-bash">docker run my-image -v
-# runs nginx -v
-</code></pre>
-<p><strong>Override ENTRYPOINT itself:</strong></p>
-<pre><code class="language-bash">docker run --entrypoint sh my-image
-# runs: sh
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">]</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;daemon off;&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Normal run (uses CMD defaults):</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>my-image
+<span class="c1"># runs: nginx -g &quot;daemon off;&quot;</span>
+</code></pre></div>
+<strong>Override CMD at runtime:</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>my-image<span class="w"> </span>-v
+<span class="c1"># runs nginx -v</span>
+</code></pre></div></p>
+<p><strong>Override ENTRYPOINT itself:</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--entrypoint<span class="w"> </span>sh<span class="w"> </span>my-image
+<span class="c1"># runs: sh</span>
+</code></pre></div></p>
 <hr />
 <ul>
-<li><code>ARG</code>: a variable available <strong>only during build time</strong>, gone after image is built.</li>
+<li><code>ARG</code>: a variable available <strong>only during build time</strong>, gone after image is built.
+<div class="highlight"><pre><span></span><code><span class="k">ARG</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span><span class="m">1</span>.0
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$VERSION</span><span class="w">      </span>#<span class="w"> </span>works<span class="w"> </span>during<span class="w"> </span>build
+</code></pre></div></li>
 </ul>
-<pre><code class="language-Dockerfile">ARG VERSION=1.0
-RUN echo $VERSION      # works during build
-</code></pre>
 <hr />
 <ul>
-<li><code>ENV</code>: a variable available at <strong>runtime</strong> inside the running container, baked into the image permanently.</li>
+<li><code>ENV</code>: a variable available at <strong>runtime</strong> inside the running container, baked into the image permanently.
+<div class="highlight"><pre><span></span><code><span class="k">ENV</span><span class="w"> </span><span class="nv">DB_HOST</span><span class="o">=</span>mariadb
+</code></pre></div></li>
 </ul>
-<pre><code class="language-Dockerfile">ENV DB_HOST=mariadb
-</code></pre>
 <p>Any process running inside the container can read it via <code>printenv</code> or <code>$DB_HOST</code>.</p>
 <blockquote>
 <p>One important security note: Never put passwords in <code>ENV</code> — they're visible to anyone who runs <code>docker inspect</code> on the image. That's exactly why Inception requires <code>.env</code> files and Docker secrets instead.</p>
@@ -209,23 +209,23 @@ RUN echo $VERSION      # works during build
 <ul>
 <li><code>WORKDIR</code>: Create directories and move into them inside images (working directory).</li>
 </ul>
-<pre><code class="language-Dockerfile">FROM node:18
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">node:18</span>
 
-# 1. Creates /app and moves into it
-WORKDIR /app
+<span class="c"># 1. Creates /app and moves into it</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
 
-# 2. Copies package.json from your host machine into /app/
-COPY package.json .
+<span class="c"># 2. Copies package.json from your host machine into /app/</span>
+<span class="k">COPY</span><span class="w"> </span>package.json<span class="w"> </span>.
 
-# 3. Executes 'npm install' inside /app/
-RUN npm install
+<span class="c"># 3. Executes &#39;npm install&#39; inside /app/</span>
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install
 
-# 4. Copies the rest of your project into /app/
-COPY . .
+<span class="c"># 4. Copies the rest of your project into /app/</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
 
-# 5. Starts the app inside /app/ when the container boots
-CMD [&quot;npm&quot;, &quot;start&quot;]
-</code></pre>
+<span class="c"># 5. Starts the app inside /app/ when the container boots</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;npm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
+</code></pre></div>
 <hr />
 <blockquote>
 <p>All <code>Dockerfile</code> instructions happened at <strong>build time</strong> except <code>ENTRYPOINT</code> and <code>CMD</code>, happened at <strong>runtime</strong>(container creation using <code>docker run</code>). </p>
@@ -274,15 +274,15 @@ CMD [&quot;npm&quot;, &quot;start&quot;]
 <p>Multi-stage builds introduce multiple stages in your Dockerfile, each with a specific purpose. Think of it like the ability to run different parts of a build in multiple different environments, concurrently. By separating the build environment from the final runtime environment, you can significantly reduce the image size and attack surface. This is especially beneficial for applications with large build dependencies.</p>
 <p>Ex: simple example of multi stage pattern to run C code that prints hello world.</p>
 <p>Compilation will be on a specific stage and running will on another</p>
-<pre><code class="language-Dockerfile">FROM debian:bookworm-slim AS build-stage
-RUN apt-get update &amp;&amp; apt-get install -y gcc
-COPY hello.c .
-RUN gcc hello.c -o hello
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build-stage</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gcc
+<span class="k">COPY</span><span class="w"> </span>hello.c<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>gcc<span class="w"> </span>hello.c<span class="w"> </span>-o<span class="w"> </span>hello
 
-FROM debian:bookworm-slim AS run-stage
-COPY --from=build-stage hello .
-ENTRYPOINT [&quot;./hello&quot;]
-</code></pre>
+<span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">run-stage</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build-stage<span class="w"> </span>hello<span class="w"> </span>.
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./hello&quot;</span><span class="p">]</span>
+</code></pre></div>
 <ul>
 <li>The first <code>FROM</code> (build-stage), has compiled the file.</li>
 <li>The second <code>FROM</code> (run-stage), has copied the result compiled file from build-stage and run it.</li>

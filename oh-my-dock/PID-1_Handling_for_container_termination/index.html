@@ -102,7 +102,7 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
             <li class="nav-item" data-bs-level="2"><a href="#problem" class="nav-link">Problem</a>
@@ -150,21 +150,21 @@
 <blockquote>
 <p>This is important if we running an application/service inside a container, Ex: Nginx , To let it handle it's configurations and save it's state with what ever it has. Make less errors. </p>
 </blockquote>
-<p>Services like MariaDB would give this error if <code>SIGKILL</code>:</p>
-<pre><code>InnoDB: Database was not shutdown normally!
+<p>Services like MariaDB would give this error if <code>SIGKILL</code>:
+<div class="highlight"><pre><span></span><code>InnoDB: Database was not shutdown normally!
 InnoDB: Starting crash recovery.
-</code></pre>
+</code></pre></div></p>
 <h2 id="solution">Solution</h2>
 <h2 id="1-tini">1) <code>tini</code></h2>
 <p>tiny init system built specifically to solve the exact PID 1 problem but it solves it from a different angle than the <code>exec</code> pattern.</p>
 <blockquote>
 <p><code>tini</code> is a ~2000-line C program whose entire job is to be a <strong>correct, minimal PID 1</strong>. Instead of your real service (or your script) being PID 1 directly, <code>tini</code> sits as PID 1, and your actual application runs as its child (PID 2+).</p>
 </blockquote>
-<p>Ex:</p>
-<pre><code class="language-Dockerfile">Without tini:          With tini:
-PID 1 = mysqld          PID 1 = tini
-                         PID 2 = mysqld (tini's child)
-</code></pre>
+<p>Ex:
+<div class="highlight"><pre><span></span><code>Without<span class="w"> </span>tini:<span class="w">          </span>With<span class="w"> </span>tini:
+PID<span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mysqld<span class="w">          </span>PID<span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>tini
+<span class="w">                         </span>PID<span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mysqld<span class="w"> </span><span class="o">(</span>tini<span class="err">&#39;</span>s<span class="w"> </span>child<span class="o">)</span>
+</code></pre></div></p>
 <p><strong>What problem it solves that plain PID 1 doesn't  ?</strong></p>
 <p>Two things a normal PID 1 process usually <em>doesn't</em> do correctly, but <code>tini</code> does:</p>
 <ol>
@@ -198,50 +198,50 @@ PID 1 = mysqld          PID 1 = tini
 <p>Zombie process: A process which has finished but it's parent doesn't know yet (no <code>wait()</code> has been used by the parent to collect it's status from the process table). </p>
 <p><strong>Zombie reaping</strong>: This is the one <code>exec</code> alone doesn't solve. On Linux, PID 1 has a special extra responsibility — it must "reap" (clean up) any orphaned zombie processes whose parents have died, otherwise they pile up in the process table. Normal applications (<code>mysqld</code>, <code>nginx</code>) were never written expecting to be an init system, so they don't do this. <code>tini</code> does it correctly, since that's literally its purpose.</p>
 </blockquote>
-<p><strong>How to do this</strong></p>
-<pre><code class="language-Dockerfile">FROM debian:bookworm-slim
-RUN apt-get update &amp;&amp; apt-get install -y tini mysql-server
+<p><strong>How to do this</strong>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tini<span class="w"> </span>mysql-server
 
-ENTRYPOINT [&quot;/usr/bin/tini&quot;, &quot;--&quot;, &quot;/usr/local/bin/entrypoint.sh&quot;] # Add it here
-</code></pre>
-<p>Or, in <strong>Docker-compose</strong>, Docker actually has this <strong>built in</strong> — no separate binary needed:</p>
-<pre><code class="language-yaml">services:
-  mariadb:
-    build: ./requirements/mariadb
-    init: true
-</code></pre>
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/usr/bin/tini&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/usr/local/bin/entrypoint.sh&quot;</span><span class="p">]</span><span class="w"> </span>#<span class="w"> </span>Add<span class="w"> </span>it<span class="w"> </span>here
+</code></pre></div></p>
+<p>Or, in <strong>Docker-compose</strong>, Docker actually has this <strong>built in</strong> — no separate binary needed:
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mariadb</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./requirements/mariadb</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></p>
 <p><strong>How tini kills it's child processes ?</strong></p>
 <p>consider <code>Nginx</code> is running inside the container.
 <code>tini</code> doesn't get killed at once from <code>SIGTERM</code>, it wait/passes it to it's direct child first, and then wait for it to be <strong>well</strong> terminated.</p>
-<pre><code>docker stop → SIGTERM → tini
+<div class="highlight"><pre><span></span><code>docker stop → SIGTERM → tini
                           │
                 tini is ALIVE, running its own signal handler
                           │
-                tini's code explicitly does: kill(nginx_pid, SIGTERM)
+                tini&#39;s code explicitly does: kill(nginx_pid, SIGTERM)
                           │
                 nginx receives it, shuts down properly
                           │
                 nginx exits → tini notices (via wait()) → tini exits too
-</code></pre>
+</code></pre></div>
 <hr />
 <h3 id="2-exec-a-command-that-executes-a-process">2) <code>exec</code>: A command that executes a process.</h3>
-<p>Normaly to execute a child process a <code>fork()</code> happened first:</p>
-<pre><code>Shell (PID 100)
+<p>Normaly to execute a child process a <code>fork()</code> happened first:
+<div class="highlight"><pre><span></span><code>Shell (PID 100)
    │
    ├── fork() ──&gt; creates a NEW process (PID 101), a copy of the shell
    │                    │
    │                    └── exec() ──&gt; PID 101 now runs the new program
    │
    └── Shell (PID 100) still exists, waiting for PID 101 to finish
-</code></pre>
+</code></pre></div></p>
 <p>But, What if no <code>fork()</code> like direct <code>exec mysqld</code> ? 4
-<strong>Only replaces</strong>.</p>
-<pre><code>Script (PID 1)
+<strong>Only replaces</strong>.
+<div class="highlight"><pre><span></span><code>Script (PID 1)
    │
-   └── exec() ──&gt; the KERNEL replaces this process's own memory image
-                   with mysqld's code, data, and stack —
+   └── exec() ──&gt; the KERNEL replaces this process&#39;s own memory image
+                   with mysqld&#39;s code, data, and stack —
                    same PID, same process table entry, same file descriptors
-</code></pre>
+</code></pre></div></p>
 <ul>
 <li>We can use this behavior to make the main process different in a container so it can accept signals (because these applications/process can take signals).</li>
 </ul>
@@ -276,33 +276,33 @@ ENTRYPOINT [&quot;/usr/bin/tini&quot;, &quot;--&quot;, &quot;/usr/local/bin/entr
 </tbody>
 </table>
 <p>Without <code>exec</code></p>
-<pre><code class="language-bash">#!/bin/bash
-# setup...
-mysqld            # forked as a CHILD process
-</code></pre>
-<pre><code>ps aux inside container:
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># setup...</span>
+mysqld<span class="w">            </span><span class="c1"># forked as a CHILD process</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ps aux inside container:
 PID 1   bash entrypoint.sh
 PID 47  mysqld          ← SIGTERM never reaches here automatically
-</code></pre>
-<p>With <code>exec</code></p>
-<pre><code class="language-bash">#!/bin/bash
-# setup...
-exec mysqld       # REPLACES the current process
-</code></pre>
-<pre><code>ps aux inside container:
+</code></pre></div>
+<p>With <code>exec</code>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># setup...</span>
+<span class="nb">exec</span><span class="w"> </span>mysqld<span class="w">       </span><span class="c1"># REPLACES the current process</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>ps aux inside container:
 PID 1   mysqld          ← SIGTERM reaches this directly, mysqld handles it itself
-</code></pre>
+</code></pre></div>
 <p><strong>How to use it ?</strong> </p>
 <p>We can make a script for the configuration of our application, and apply it inside the <code>Dockerfile</code></p>
-<pre><code class="language-bash">#!/bin/bash
-# setup...
-exec mysqld       # REPLACES the current process
-</code></pre>
-<p>in <code>Dockerfile</code></p>
-<pre><code class="language-Dockerfile">COPY tools/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT [&quot;/usr/local/bin/entrypoint.sh&quot;]
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># setup...</span>
+<span class="nb">exec</span><span class="w"> </span>mysqld<span class="w">       </span><span class="c1"># REPLACES the current process</span>
+</code></pre></div>
+<p>in <code>Dockerfile</code>
+<div class="highlight"><pre><span></span><code><span class="k">COPY</span><span class="w"> </span>tools/entrypoint.sh<span class="w"> </span>/usr/local/bin/entrypoint.sh
+<span class="k">RUN</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/usr/local/bin/entrypoint.sh
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/usr/local/bin/entrypoint.sh&quot;</span><span class="p">]</span>
+</code></pre></div></p>
 <hr /></div>
             </div>
         </div>

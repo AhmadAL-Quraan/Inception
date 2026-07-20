@@ -102,7 +102,7 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
             <li class="nav-item" data-bs-level="2"><a href="#docker-phrases-you-will-see-often" class="nav-link">Docker phrases you will see often</a>
@@ -140,15 +140,16 @@
 <li><strong>Docker Engine API</strong>: Docker provides an API for interacting with the Docker daemon (called the Docker Engine API), as well as SDKs for Go and Python.</li>
 <li><strong>Dockerd</strong>: a persistent background service that manages Docker containers, images, networks, and storage volumes.</li>
 </ul>
-<p><code>Docker-client --&gt; Docker Engine API --&gt; Dockerd</code></p>
+<div class="highlight"><pre><span></span><code>Docker-client --&gt; Docker Engine API --&gt; Dockerd
+</code></pre></div>
 <ul>
 <li><strong>Docker</strong>: It is a container engine that uses the Linux Kernel features like <strong>namespaces</strong> and <strong>control groups</strong>, to create containers on top of an operating system. So you can call it <strong>OS-level virtualization</strong>.</li>
 <li><strong>Containers</strong>: Object of an image. Isolated process (Not a mini VM or smthing), that has it's own configurations to run a specific application (it's application layer virtualization).</li>
 <li><strong>Image</strong>: Class or a package, that has the necessary configurations and layers to run a container. It's a <strong>read-only</strong>, immutable template made of layered system (<strong>multiple read-only filesystem layers and configuration files metadata</strong>), not a typical file that you can read.</li>
 <li><strong>Dockerfile</strong>: Commands, script, text-based doc, that it's used to make an image. See [[How_to_write_Dockerfile]] .</li>
 </ul>
-<pre><code>Dockerfile ---&gt; image ---&gt; container
-</code></pre>
+<div class="highlight"><pre><span></span><code>Dockerfile ---&gt; image ---&gt; container
+</code></pre></div>
 <ul>
 <li><strong>Docker-compose</strong>: is an <strong>orchestration tool</strong>. It reads a YAML file — usually <code>docker-compose.yml</code> — where you describe:<ul>
 <li>Which <strong>images</strong> to build or pull</li>
@@ -159,11 +160,11 @@
 </ul>
 </li>
 </ul>
-<pre><code>Dockerfile        → recipe for ONE image
+<div class="highlight"><pre><span></span><code>Dockerfile        → recipe for ONE image
 docker run         → starts ONE container from an image
 docker-compose.yml → recipe for MULTIPLE containers working together
 docker-compose up  → builds/starts ALL of them at once, wired together
-</code></pre>
+</code></pre></div>
 <ul>
 <li><strong>Docker volumes</strong>: the preferred and safest mechanism for persisting data generated and used by Docker containers, <strong>Managed by Dockerd itself</strong>. Because containers are ephemeral by nature, any data written to their internal storage layers is permanently lost if the container is deleted. Volumes solve this by storing data outside the container's standard file-system in a host directory completely managed by Docker.</li>
 <li><strong>Docker registry</strong>: A centralized location where images are uploaded to, it could be public or private. Ex: <a href="https://hub.docker.com/">DockerHub</a></li>
@@ -171,16 +172,18 @@ docker-compose up  → builds/starts ALL of them at once, wired together
 </ul>
 <h2 id="image-internals-concepts">Image internals concepts</h2>
 <ul>
-<li>Structure to the name of an image:</li>
+<li>Structure to the name of an image:
+<div class="highlight"><pre><span></span><code>[HOST[:PORT_NUMBER]/]PATH[:TAG]
+</code></pre></div>
+Explanation:<ul>
+<li><code>HOST</code>: The optional registry hostname where the image is located. If no host is specified, Docker's public registry at <code>docker.io</code> is used by default.</li>
+<li><code>PORT_NUMBER</code>: The registry port number if a hostname is provided</li>
+<li><code>PATH</code>: The path of the image, consisting of slash-separated components. For Docker Hub, the format follows <code>[NAMESPACE/]REPOSITORY</code>, where namespace is either a user's or organization's name (mostly your account on docker hub). If no namespace is specified, <code>library</code> is used, which is the namespace for Docker Official Images.</li>
+<li><code>TAG</code>: A custom, human-readable identifier that's typically used to identify different versions or variants of an image. If no tag is specified, <code>latest</code> is used by default.
+Ex: <code>docker.io/library/nginx:latest</code> -&gt; <code>docker.io</code>: Host, <code>PATH</code>: namespace: library, Repo: nginx, tag: latest.</li>
 </ul>
-<pre><code>[HOST[:PORT_NUMBER]/]PATH[:TAG]
-</code></pre>
-<p>Explanation:
-    - <code>HOST</code>: The optional registry hostname where the image is located. If no host is specified, Docker's public registry at <code>docker.io</code> is used by default.
-    - <code>PORT_NUMBER</code>: The registry port number if a hostname is provided
-    - <code>PATH</code>: The path of the image, consisting of slash-separated components. For Docker Hub, the format follows <code>[NAMESPACE/]REPOSITORY</code>, where namespace is either a user's or organization's name (mostly your account on docker hub). If no namespace is specified, <code>library</code> is used, which is the namespace for Docker Official Images.
-    - <code>TAG</code>: A custom, human-readable identifier that's typically used to identify different versions or variants of an image. If no tag is specified, <code>latest</code> is used by default.
-    Ex: <code>docker.io/library/nginx:latest</code> -&gt; <code>docker.io</code>: Host, <code>PATH</code>: namespace: library, Repo: nginx, tag: latest.</p>
+</li>
+</ul>
 <blockquote>
 <p>If you have an image from one syllabus only, Ex: <code>debian:bookworm-slim</code>, <strong>debian</strong> is the image name and there is no <strong>namespace</strong> in this case, because debian is an official image provided by docker hub and the maintainers of this image.</p>
 </blockquote>
