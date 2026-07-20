@@ -9,23 +9,25 @@
       
       
       
+        <link rel="prev" href="../PID-1_Handling_for_container_termination/">
       
-        <link rel="next" href="Docker%20Commands%20Cheat%20Sheet%20%28Frequently%20used%29/">
+      
+        <link rel="next" href="../Understanding_Docker_File-System_Resources_and_chroot.md/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>My Docs</title>
+        <title>Start here - My Docs</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
       
 
@@ -44,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -62,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-inception" class="md-skip">
+        <a href="#new-to-docker" class="md-skip">
           Skip to content
         </a>
       
@@ -78,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -98,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Welcome to Inception
+              Start here
             
           </span>
         </div>
@@ -176,7 +178,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -191,37 +193,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Welcome to Inception
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -237,48 +212,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Project layout
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#big-picture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Big picture
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -290,7 +223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Docker%20Commands%20Cheat%20Sheet%20%28Frequently%20used%29/" class="md-nav__link">
+      <a href="../../Docker%20Commands%20Cheat%20Sheet%20%28Frequently%20used%29/" class="md-nav__link">
         
   
   
@@ -314,18 +247,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -346,7 +281,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -364,7 +299,7 @@
   
   
     <li class="md-nav__item">
-      <a href="oh-my-dock/Docker_Storage_Options_Comparison/" class="md-nav__link">
+      <a href="../Docker_Storage_Options_Comparison/" class="md-nav__link">
         
   
   
@@ -392,7 +327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="oh-my-dock/How_to_write_Dockerfile/" class="md-nav__link">
+      <a href="../How_to_write_Dockerfile/" class="md-nav__link">
         
   
   
@@ -420,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="oh-my-dock/PID-1_Handling_for_container_termination/" class="md-nav__link">
+      <a href="../PID-1_Handling_for_container_termination/" class="md-nav__link">
         
   
   
@@ -445,10 +380,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="oh-my-dock/Start_here/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -464,6 +426,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The basics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building images
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running containers
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -476,7 +491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="oh-my-dock/Understanding_Docker_File-System_Resources_and_chroot.md/" class="md-nav__link">
+      <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="md-nav__link">
         
   
   
@@ -504,7 +519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="oh-my-dock/main_concept/" class="md-nav__link">
+      <a href="../main_concept/" class="md-nav__link">
         
   
   
@@ -559,10 +574,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
+  <a href="#the-basics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project layout
+        The basics
       
     </span>
   </a>
@@ -570,10 +585,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#big-picture" class="md-nav__link">
+  <a href="#building-images" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Big picture
+        Building images
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running containers
       
     </span>
   </a>
@@ -597,19 +623,38 @@
 
 
 
-<h1 id="welcome-to-inception">Welcome to Inception</h1>
-<p>The inception project is all about learning <strong>Docker, Docker-compose, Docker network</strong> and how these things are managed, to allow services to talk to each other, in a containerized area.</p>
-<h2 id="project-layout">Project layout</h2>
-<p>The project consists of main services: </p>
-<p>1) <strong>Infrastructure</strong>: Docker, Docker-compose</p>
-<p>2) <strong>Nginx</strong>: reverse proxy</p>
-<p>3) <strong>Wordpress</strong>: a free, open-source content management system (CMS) that allows you to build and manage websites without needing to know how to code.</p>
-<p>4) <strong>php-fpm</strong>: Used by wordpress to run wordpress.</p>
-<p>5) <strong>Mariadb</strong>: a popular, open-source relational database management system (RDBMS)</p>
-<h2 id="big-picture">Big picture</h2>
-<p><img alt="" src="pic/diagram.png" /></p>
-<p>New to docker ? <a href="oh-my-dock/Start_here/">start here</a>
-<a href="oh-my-dock/main_concept/">Main concept</a></p>
+<p>[[#New to Docker ?]] 
+<a href="https://www.youtube.com/playlist?list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7">If you like videos</a></p>
+<p>These tutorials will be enough to get you started in depth.</p>
+<h1 id="new-to-docker">New to Docker ?</h1>
+<h2 id="the-basics">The basics</h2>
+<p><a href="https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/" title="What is a container?">What is a container?</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/" title="What is an image?">What is an image?</a> (Blueprint for Containers)
+<a href="https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registry/" title="What is a registry?">What is a registry?</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-docker-compose/" title="What is Docker Compose?">What is Docker Compose?</a></p>
+<h2 id="building-images">Building images</h2>
+<p><a href="https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/" title="Understanding the image layers">Understanding the image layers</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/" title="Writing a Dockerfile">Writing a Dockerfile</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/building-images/build-tag-and-publish-an-image/" title="Build, tag, and publish an image">Build, tag, and publish an image</a>: 
+    <a href="https://docs.docker.com/build/concepts/context/#what-is-a-build-context">What is a build context?</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/building-images/using-the-build-cache/" title="Using the build cache">Using the build cache</a>
+    - <a href="https://docs.docker.com/build/cache/">Optimizing builds with cache management</a>
+    - <a href="https://docs.docker.com/build/cache/backends/">Cache Storage Backend</a>
+    - <a href="https://docs.docker.com/build/cache/invalidation/">Build cache invalidation</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/building-images/multi-stage-builds/" title="Multi-stage builds">Multi-stage builds</a></p>
+<h2 id="running-containers">Running containers</h2>
+<p><a href="https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/" title="Publishing and exposing ports">Publishing and exposing ports</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/running-containers/overriding-container-defaults/" title="Overriding container defaults">Overriding container defaults</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/running-containers/persisting-container-data/" title="Persisting container data">Persisting container data</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/running-containers/sharing-local-files/" title="Sharing local files with containers">Sharing local files with containers</a>
+<a href="https://docs.docker.com/get-started/docker-concepts/running-containers/multi-container-applications/" title="Multi-container applications">Multi-container applications</a></p>
+<h1 id="what-you-really-need-to-learn-for-inception">What you really need to learn for inception?</h1>
+<p>1) Docker images and containers
+2) How to write Dockerfile
+3) How to write Docker-compose
+4) What is Docker networking (understand it)
+5) what is Volumes (bind mount vs named volumes)
+6) Secretes/env handling</p>
 
 
 
@@ -659,10 +704,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
