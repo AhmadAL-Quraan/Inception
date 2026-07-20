@@ -1,11 +1,16 @@
 site_name: Inception 
 #site_url: https://ahmadal-quraan.github.io/Inception/
+docs_dir: docs/ 
 theme: 
   name: material
 plugins:
   - search
-  - callouts
+  - obsidian-bridge:
+      obsidian_callouts: true
 
+# Tells MkDocs where to look for your images
+extra:
+  obsidian_attachments_dir: docs/pic/ # Change to your Obsidian attachments folder name
 markdown_extensions:
   - admonition
   - pymdownx.details
