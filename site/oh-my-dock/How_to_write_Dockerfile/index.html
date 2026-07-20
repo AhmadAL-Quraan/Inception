@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://ahmadal-quraan.github.io/Inception/oh-my-dock/How_to_write_Dockerfile/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>How to write Dockerfile - My Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Welcome to Inception</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../Docker%20Commands%20Cheat%20Sheet%20%28Frequently%20used%29/" class="nav-link">Docker Commands Cheat Sheet (Frequently used)</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Oh my dock</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../1%29%20Start_here/" class="dropdown-item">1) Start here</a>
+</li>
+                                    
+<li>
+    <a href="../2%29%20Phrases-Concept-%28Quick_recap%29/" class="dropdown-item">2) Phrases Concept (Quick recap)</a>
+</li>
+                                    
+<li>
+    <a href="../Docker_Storage_Options_Comparison/" class="dropdown-item">Docker Storage Options Comparison</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">How to write Dockerfile</a>
+</li>
+                                    
+<li>
+    <a href="../PID-1_Handling_for_container_termination/" class="dropdown-item">PID 1 Handling for container termination</a>
+</li>
+                                    
+<li>
+    <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="dropdown-item">Understanding Docker File System Resources and chroot.md</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../Docker_Storage_Options_Comparison/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../PID-1_Handling_for_container_termination/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="2"><a href="#main-commands" class="nav-link">Main commands</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it" class="nav-link">* RUN: Executes a command during the build process (Image creation, build time), and saves the result as a new layer (filesystem) in the image. /bin/bash -c inside it.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form" class="nav-link">&gt; Same broken pattern, shell at PID 1, signals never reach nginx. So always use exec form.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#dockerfile-instructions-worth-knowing-distinctly" class="nav-link">Dockerfile instructions worth knowing distinctly</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#multi-stage-pattern" class="nav-link">Multi-stage pattern</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<div class="highlight"><pre><span></span><code>title: 
+style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
+minLevel: 0 # Include headings from the specified level
+maxLevel: 0 # Include headings up to the specified level
+include: 
+exclude: 
+includeLinks: true # Make headings clickable
+hideWhenEmpty: false # Hide TOC if no headings are found
+debugInConsole: false # Print debug info in Obsidian console
+</code></pre></div>
+<h2 id="main-commands">Main commands</h2>
+<ul>
+<li><code>FROM</code>:picks the <strong>base image</strong> your image starts from. -&gt; first layer
+is just downloading that filesystem snapshot, nothing more</li>
+</ul>
+<hr />
+<h2 id="run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it">* <code>RUN</code>: Executes a command <strong>during the build process</strong> (Image creation, build time), and saves the result as a new layer (filesystem) in the image. <code>/bin/bash -c</code> inside it.</h2>
+<ul>
+<li><code>COPY</code>: Copies files from your <strong>host machine</strong> (build context) into the image. 
+    Ex: <code>COPY host-machine_fs docker_fs</code></li>
+</ul>
+<hr />
+<ul>
+<li><code>Entrypoint</code>: defines the command that runs when the container starts, it becomes <code>PID 1</code> .<ul>
+<li>
+<p>Two forms:
+    1) <code>ENTRYPOINT ["nginx", "-g", "daemon off;"]</code> --&gt; (<strong>exec form</strong>, Runs the binary <strong>directly</strong> — no shell involved. Binary becomes <code>PID 1</code>.)
+    2) <code>ENTRYPOINT nginx -g "daemon off;</code>--&gt; Runs as <code>/bin/sh -c "nginx -g 'daemon off;'"</code> — the <strong>shell</strong> becomes <code>PID 1</code>, nginx is a child underneath it.</p>
+<h2 id="same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form">&gt; Same broken pattern, shell at <code>PID 1</code>, signals never reach nginx. So always use <strong>exec form</strong>.</h2>
+<ul>
+<li><code>CMD</code>: provides <strong>default arguments</strong> to <code>ENTRYPOINT</code> (overridable), or a default command if no <code>ENTRYPOINT</code> is set.<ul>
+<li>The main purpose of this, is to overridable argument for <code>ENTRYPOINT</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">]</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;daemon off;&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Normal run (uses CMD defaults):</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>my-image
+<span class="c1"># runs: nginx -g &quot;daemon off;&quot;</span>
+</code></pre></div>
+<strong>Override CMD at runtime:</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>my-image<span class="w"> </span>-v
+<span class="c1"># runs nginx -v</span>
+</code></pre></div></p>
+<p><strong>Override ENTRYPOINT itself:</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--entrypoint<span class="w"> </span>sh<span class="w"> </span>my-image
+<span class="c1"># runs: sh</span>
+</code></pre></div></p>
+<hr />
+<ul>
+<li><code>ARG</code>: a variable available <strong>only during build time</strong>, gone after image is built.
+<div class="highlight"><pre><span></span><code><span class="k">ARG</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span><span class="m">1</span>.0
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$VERSION</span><span class="w">      </span>#<span class="w"> </span>works<span class="w"> </span>during<span class="w"> </span>build
+</code></pre></div></li>
+</ul>
+<hr />
+<ul>
+<li><code>ENV</code>: a variable available at <strong>runtime</strong> inside the running container, baked into the image permanently.
+<div class="highlight"><pre><span></span><code><span class="k">ENV</span><span class="w"> </span><span class="nv">DB_HOST</span><span class="o">=</span>mariadb
+</code></pre></div></li>
+</ul>
+<p>Any process running inside the container can read it via <code>printenv</code> or <code>$DB_HOST</code>.</p>
+<blockquote>
+<p>One important security note: Never put passwords in <code>ENV</code> — they're visible to anyone who runs <code>docker inspect</code> on the image. That's exactly why Inception requires <code>.env</code> files and Docker secrets instead.</p>
+</blockquote>
+<hr />
+<ul>
+<li><code>WORKDIR</code>: Create directories and move into them inside images (working directory).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">node:18</span>
+
+<span class="c"># 1. Creates /app and moves into it</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+
+<span class="c"># 2. Copies package.json from your host machine into /app/</span>
+<span class="k">COPY</span><span class="w"> </span>package.json<span class="w"> </span>.
+
+<span class="c"># 3. Executes &#39;npm install&#39; inside /app/</span>
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install
+
+<span class="c"># 4. Copies the rest of your project into /app/</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+
+<span class="c"># 5. Starts the app inside /app/ when the container boots</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;npm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
+</code></pre></div>
+<hr />
+<blockquote>
+<p>All <code>Dockerfile</code> instructions happened at <strong>build time</strong> except <code>ENTRYPOINT</code> and <code>CMD</code>, happened at <strong>runtime</strong>(container creation using <code>docker run</code>). </p>
+<p>Every <code>Dockerfile</code> instruction that modifies the filesystem creates a new layer, including <code>COPY</code>.</p>
+</blockquote>
+<h2 id="dockerfile-instructions-worth-knowing-distinctly">Dockerfile instructions worth knowing distinctly</h2>
+<ul>
+<li><strong><code>ENTRYPOINT</code> vs <code>CMD</code></strong>: <code>ENTRYPOINT</code> sets the fixed executable that always runs; <code>CMD</code> supplies default <em>arguments</em> to it (overridable at <code>docker run</code>). Often used together: <code>ENTRYPOINT ["nginx"]</code>, <code>CMD ["-g", "daemon off;"]</code>.</li>
+</ul>
+<hr />
+<ul>
+<li><strong><code>ARG</code> vs <code>ENV</code></strong>: <code>ARG</code> is a build-time-only variable (not present in the final image or running container). <code>ENV</code> persists into the running container and is visible via <code>docker inspect</code> / <code>printenv</code>. Never put secrets in either — they end up baked into image layers or history.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>ARG</code></th>
+<th><code>ENV</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Available at build time</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Available at runtime</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Visible in <code>docker inspect</code></td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Use case</td>
+<td>Build configuration</td>
+<td>App configuration</td>
+</tr>
+</tbody>
+</table>
+<h2 id="multi-stage-pattern">Multi-stage pattern</h2>
+<p>Multi-stage builds introduce multiple stages in your Dockerfile, each with a specific purpose. Think of it like the ability to run different parts of a build in multiple different environments, concurrently. By separating the build environment from the final runtime environment, you can significantly reduce the image size and attack surface. This is especially beneficial for applications with large build dependencies.</p>
+<p>Ex: simple example of multi stage pattern to run C code that prints hello world.</p>
+<p>Compilation will be on a specific stage and running will on another</p>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build-stage</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gcc
+<span class="k">COPY</span><span class="w"> </span>hello.c<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>gcc<span class="w"> </span>hello.c<span class="w"> </span>-o<span class="w"> </span>hello
+
+<span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">run-stage</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build-stage<span class="w"> </span>hello<span class="w"> </span>.
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./hello&quot;</span><span class="p">]</span>
+</code></pre></div>
+<ul>
+<li>The first <code>FROM</code> (build-stage), has compiled the file.</li>
+<li>The second <code>FROM</code> (run-stage), has copied the result compiled file from build-stage and run it.</li>
+</ul>
+<blockquote>
+<p>Only the last <code>FROM</code> is the one which the image is going to keep and makes the layer from. Each <code>FROM</code> is a separated layer and filesystem.</p>
+</blockquote></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

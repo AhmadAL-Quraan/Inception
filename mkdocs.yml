@@ -1,2 +1,10 @@
 site_name: My Docs
-site_url: https://AhmadAL-Quraan.github.io/Inception/
+site_url: https://ahmadal-quraan.github.io/Inception/
+plugins:
+  - search
+  - callouts
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences

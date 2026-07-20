@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://ahmadal-quraan.github.io/Inception/oh-my-dock/PID-1_Handling_for_container_termination/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>PID 1 Handling for container termination - My Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Welcome to Inception</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../Docker%20Commands%20Cheat%20Sheet%20%28Frequently%20used%29/" class="nav-link">Docker Commands Cheat Sheet (Frequently used)</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Oh my dock</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../1%29%20Start_here/" class="dropdown-item">1) Start here</a>
+</li>
+                                    
+<li>
+    <a href="../2%29%20Phrases-Concept-%28Quick_recap%29/" class="dropdown-item">2) Phrases Concept (Quick recap)</a>
+</li>
+                                    
+<li>
+    <a href="../Docker_Storage_Options_Comparison/" class="dropdown-item">Docker Storage Options Comparison</a>
+</li>
+                                    
+<li>
+    <a href="../How_to_write_Dockerfile/" class="dropdown-item">How to write Dockerfile</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">PID 1 Handling for container termination</a>
+</li>
+                                    
+<li>
+    <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="dropdown-item">Understanding Docker File System Resources and chroot.md</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../How_to_write_Dockerfile/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="2"><a href="#problem" class="nav-link">Problem</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#solution" class="nav-link">Solution</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#1-tini" class="nav-link">1) tini</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<p><strong>Why PID-1 is important ?</strong>
+  -&gt;   <code>PID-1</code> is the main (first) process to run on any Linux system.
+    All sub-process are descendant from it in one way or another.
+     In Docker, a container is defined as <strong>running</strong>, until <code>PID-1</code> terminated.</p>
+<hr />
+<p>We have two main signals to shutdown any container: 
+    1) <code>SIGTERM</code>: A process handler (running it's own way of shutting down)
+    2) <code>SIGKILL</code>: Kernel forces (Kernel forces a process to shutdown/terminate)</p>
+<h2 id="problem">Problem</h2>
+<ul>
+<li>Without proper handling of <code>PID-1</code>, if using <code>docker stop &lt;container&gt;</code>:</li>
+</ul>
+<p>1) Kernel delivers <code>SIGTERM</code> to <code>PID-1</code> (a "please stop" request), bash has no handler for this (process running as <code>PID-1</code> doesn't have a shutdown code), so nothing happens, bash keeps running.
+2) Docker's daemon just... waits (default: 10 seconds) this is Docker giving the process a grace period, not the kernel enforcing anything.
+3) After timeout, Docker daemon issues a <code>SIGKILL</code> to <code>PID 1</code> inside this container→ kernel forcibly terminates the process, no cooperation needed, no code in bash runs, it's just gone instantly, and the container now died.</p>
+<p><strong>So if it is going to shutdown either way, where is the problem ?</strong></p>
+<blockquote>
+<p>That is right that it is going to shutdown either way, but there is a big difference between forcing a process to shutdown, and letting it running it's own shutdown process.         </p>
+</blockquote>
+<ul>
+<li><strong><code>SIGTERM</code> (handled correctly, avoid errors)</strong>: the process gets to run its <em>own</em> shutdown code first — close network connections properly, finish writing any in-progress data to disk, flush buffers, release locks, close files cleanly — and <em>then</em> exit.</li>
+<li><strong><code>SIGKILL</code>(Not handled correctly, errors could happens)</strong>: the process is yanked out from under itself mid-instruction. No code runs. Whatever it was doing at that exact microsecond just... stops. Nothing gets to finish or clean up.</li>
+</ul>
+<blockquote>
+<p>This is important if we running an application/service inside a container, Ex: Nginx , To let it handle it's configurations and save it's state with what ever it has. Make less errors. </p>
+</blockquote>
+<p>Services like MariaDB would give this error if <code>SIGKILL</code>:
+<div class="highlight"><pre><span></span><code>InnoDB: Database was not shutdown normally!
+InnoDB: Starting crash recovery.
+</code></pre></div></p>
+<h2 id="solution">Solution</h2>
+<h2 id="1-tini">1) <code>tini</code></h2>
+<p>tiny init system built specifically to solve the exact PID 1 problem but it solves it from a different angle than the <code>exec</code> pattern.</p>
+<blockquote>
+<p><code>tini</code> is a ~2000-line C program whose entire job is to be a <strong>correct, minimal PID 1</strong>. Instead of your real service (or your script) being PID 1 directly, <code>tini</code> sits as PID 1, and your actual application runs as its child (PID 2+).</p>
+</blockquote>
+<p>Ex:
+<div class="highlight"><pre><span></span><code>Without<span class="w"> </span>tini:<span class="w">          </span>With<span class="w"> </span>tini:
+PID<span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mysqld<span class="w">          </span>PID<span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>tini
+<span class="w">                         </span>PID<span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mysqld<span class="w"> </span><span class="o">(</span>tini<span class="err">&#39;</span>s<span class="w"> </span>child<span class="o">)</span>
+</code></pre></div></p>
+<p><strong>What problem it solves that plain PID 1 doesn't  ?</strong></p>
+<p>Two things a normal PID 1 process usually <em>doesn't</em> do correctly, but <code>tini</code> does:</p>
+<ol>
+<li><strong>Signal forwarding</strong>: <code>tini</code> receives <code>SIGTERM</code> (from <code>docker stop</code>) and explicitly forwards it to its child process. Even if your app wasn't written with perfect signal-handling assumptions about being PID 1, <code>tini</code> bridges that gap.</li>
+<li><strong>Zombie reaping</strong>: This is the one <code>exec</code> alone doesn't solve. On Linux, PID 1 has a special extra responsibility — it must "reap" (clean up) any orphaned and zombie processes whose parents have died, otherwise they pile up in the process table. Normal applications (<code>mysqld</code>, <code>nginx</code>) were never written expecting to be an init system, so they don't do this. <code>tini</code> does it correctly, since that's literally its purpose.</li>
+</ol>
+<p>So, in short:</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>What it does</th>
+<th>Applies to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signal forwarding</td>
+<td><code>tini</code> relays <code>SIGTERM</code> to its direct child so it can shut down gracefully</td>
+<td>Live, running children</td>
+</tr>
+<tr>
+<td>Zombie reaping</td>
+<td><code>tini</code> calls <code>wait()</code> on any orphaned process once it exits, so it doesn't linger as a zombie</td>
+<td>Processes that have already finished</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Orphaned process: A process which it's parent died but it is still running.</p>
+<p>Zombie process: A process which has finished but it's parent doesn't know yet (no <code>wait()</code> has been used by the parent to collect it's status from the process table). </p>
+<p><strong>Zombie reaping</strong>: This is the one <code>exec</code> alone doesn't solve. On Linux, PID 1 has a special extra responsibility — it must "reap" (clean up) any orphaned zombie processes whose parents have died, otherwise they pile up in the process table. Normal applications (<code>mysqld</code>, <code>nginx</code>) were never written expecting to be an init system, so they don't do this. <code>tini</code> does it correctly, since that's literally its purpose.</p>
+</blockquote>
+<p><strong>How to do this</strong>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tini<span class="w"> </span>mysql-server
+
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/usr/bin/tini&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/usr/local/bin/entrypoint.sh&quot;</span><span class="p">]</span><span class="w"> </span>#<span class="w"> </span>Add<span class="w"> </span>it<span class="w"> </span>here
+</code></pre></div></p>
+<p>Or, in <strong>Docker-compose</strong>, Docker actually has this <strong>built in</strong> — no separate binary needed:
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mariadb</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./requirements/mariadb</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></p>
+<p><strong>How tini kills it's child processes ?</strong></p>
+<p>consider <code>Nginx</code> is running inside the container.
+<code>tini</code> doesn't get killed at once from <code>SIGTERM</code>, it wait/passes it to it's direct child first, and then wait for it to be <strong>well</strong> terminated.</p>
+<div class="highlight"><pre><span></span><code>docker stop → SIGTERM → tini
+                          │
+                tini is ALIVE, running its own signal handler
+                          │
+                tini&#39;s code explicitly does: kill(nginx_pid, SIGTERM)
+                          │
+                nginx receives it, shuts down properly
+                          │
+                nginx exits → tini notices (via wait()) → tini exits too
+</code></pre></div>
+<hr />
+<h3 id="2-exec-a-command-that-executes-a-process">2) <code>exec</code>: A command that executes a process.</h3>
+<p>Normaly to execute a child process a <code>fork()</code> happened first:
+<div class="highlight"><pre><span></span><code>Shell (PID 100)
+   │
+   ├── fork() ──&gt; creates a NEW process (PID 101), a copy of the shell
+   │                    │
+   │                    └── exec() ──&gt; PID 101 now runs the new program
+   │
+   └── Shell (PID 100) still exists, waiting for PID 101 to finish
+</code></pre></div></p>
+<p>But, What if no <code>fork()</code> like direct <code>exec mysqld</code> ? 4
+<strong>Only replaces</strong>.
+<div class="highlight"><pre><span></span><code>Script (PID 1)
+   │
+   └── exec() ──&gt; the KERNEL replaces this process&#39;s own memory image
+                   with mysqld&#39;s code, data, and stack —
+                   same PID, same process table entry, same file descriptors
+</code></pre></div></p>
+<ul>
+<li>We can use this behavior to make the main process different in a container so it can accept signals (because these applications/process can take signals).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Replaced</th>
+<th>Preserved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Program code/instructions being executed</td>
+<td>Process ID (PID)</td>
+</tr>
+<tr>
+<td>Memory contents (heap, stack)</td>
+<td>Open file descriptors (unless marked close-on-exec)</td>
+</tr>
+<tr>
+<td>CPU register state</td>
+<td>Environment variables</td>
+</tr>
+<tr>
+<td>The program's name (as seen in <code>ps</code>)</td>
+<td>Working directory</td>
+</tr>
+<tr>
+<td></td>
+<td>Process group, session, parent PID</td>
+</tr>
+</tbody>
+</table>
+<p>Without <code>exec</code></p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># setup...</span>
+mysqld<span class="w">            </span><span class="c1"># forked as a CHILD process</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ps aux inside container:
+PID 1   bash entrypoint.sh
+PID 47  mysqld          ← SIGTERM never reaches here automatically
+</code></pre></div>
+<p>With <code>exec</code>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># setup...</span>
+<span class="nb">exec</span><span class="w"> </span>mysqld<span class="w">       </span><span class="c1"># REPLACES the current process</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>ps aux inside container:
+PID 1   mysqld          ← SIGTERM reaches this directly, mysqld handles it itself
+</code></pre></div>
+<p><strong>How to use it ?</strong> </p>
+<p>We can make a script for the configuration of our application, and apply it inside the <code>Dockerfile</code></p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># setup...</span>
+<span class="nb">exec</span><span class="w"> </span>mysqld<span class="w">       </span><span class="c1"># REPLACES the current process</span>
+</code></pre></div>
+<p>in <code>Dockerfile</code>
+<div class="highlight"><pre><span></span><code><span class="k">COPY</span><span class="w"> </span>tools/entrypoint.sh<span class="w"> </span>/usr/local/bin/entrypoint.sh
+<span class="k">RUN</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/usr/local/bin/entrypoint.sh
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/usr/local/bin/entrypoint.sh&quot;</span><span class="p">]</span>
+</code></pre></div></p>
+<hr /></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
