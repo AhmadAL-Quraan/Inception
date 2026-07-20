@@ -1,2 +1,5 @@
 secrets
 srcs/.env
+site/
+mkdocs.yml
+docs
