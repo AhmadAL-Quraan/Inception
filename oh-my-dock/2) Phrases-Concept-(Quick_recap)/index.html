@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>2) Phrases Concept (Quick recap) - My Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Welcome to Inception</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../Docker%20Commands%20Cheat%20Sheet%20%28Frequently%20used%29/" class="nav-link">Docker Commands Cheat Sheet (Frequently used)</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Oh my dock</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../1%29%20Start_here/" class="dropdown-item">1) Start here</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">2) Phrases Concept (Quick recap)</a>
+</li>
+                                    
+<li>
+    <a href="../Docker_Storage_Options_Comparison/" class="dropdown-item">Docker Storage Options Comparison</a>
+</li>
+                                    
+<li>
+    <a href="../How_to_write_Dockerfile/" class="dropdown-item">How to write Dockerfile</a>
+</li>
+                                    
+<li>
+    <a href="../PID-1_Handling_for_container_termination/" class="dropdown-item">PID 1 Handling for container termination</a>
+</li>
+                                    
+<li>
+    <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="dropdown-item">Understanding Docker File System Resources and chroot.md</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../1%29%20Start_here/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../Docker_Storage_Options_Comparison/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="2"><a href="#docker-phrases-you-will-see-often" class="nav-link">Docker phrases you will see often</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#image-internals-concepts" class="nav-link">Image internals concepts</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#container-lifecycle-process-model" class="nav-link">Container lifecycle &amp; process model</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#networking" class="nav-link">Networking</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#registry-adjacent" class="nav-link">Registry-adjacent</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="docker-phrases-you-will-see-often">Docker phrases you will see often</h2>
+<ul>
+<li><strong>Docker-client</strong>: The interface (CLI commands or GUI) that allow users to interact with Docker ecosystem (mainly Dockerd).</li>
+<li><strong>Docker Engine API</strong>: Docker provides an API for interacting with the Docker daemon (called the Docker Engine API), as well as SDKs for Go and Python.</li>
+<li><strong>Dockerd</strong>: a persistent background service that manages Docker containers, images, networks, and storage volumes.</li>
+</ul>
+<p><code>Docker-client --&gt; Docker Engine API --&gt; Dockerd</code></p>
+<ul>
+<li><strong>Docker</strong>: It is a container engine that uses the Linux Kernel features like <strong>namespaces</strong> and <strong>control groups</strong>, to create containers on top of an operating system. So you can call it <strong>OS-level virtualization</strong>.</li>
+<li><strong>Containers</strong>: Object of an image. Isolated process (Not a mini VM or smthing), that has it's own configurations to run a specific application (it's application layer virtualization).</li>
+<li><strong>Image</strong>: Class or a package, that has the necessary configurations and layers to run a container. It's a <strong>read-only</strong>, immutable template made of layered system (<strong>multiple read-only filesystem layers and configuration files metadata</strong>), not a typical file that you can read.</li>
+<li><strong>Dockerfile</strong>: Commands, script, text-based doc, that it's used to make an image. See [[How_to_write_Dockerfile]] .</li>
+</ul>
+<pre><code>Dockerfile ---&gt; image ---&gt; container
+</code></pre>
+<ul>
+<li><strong>Docker-compose</strong>: is an <strong>orchestration tool</strong>. It reads a YAML file — usually <code>docker-compose.yml</code> — where you describe:<ul>
+<li>Which <strong>images</strong> to build or pull</li>
+<li>What <strong>containers</strong> to run from them</li>
+<li>How they're connected (networks, volumes, ports, env vars, dependencies between them)</li>
+<li>You don't need a <code>Dockerfile</code> if you want to use a pre-built images, directly from a register like <code>Docker-hub</code>, it can pull them directly from it.</li>
+<li>If you want to make a <strong>Custom image</strong>, you must have <code>Dockerfile</code>.</li>
+</ul>
+</li>
+</ul>
+<pre><code>Dockerfile        → recipe for ONE image
+docker run         → starts ONE container from an image
+docker-compose.yml → recipe for MULTIPLE containers working together
+docker-compose up  → builds/starts ALL of them at once, wired together
+</code></pre>
+<ul>
+<li><strong>Docker volumes</strong>: the preferred and safest mechanism for persisting data generated and used by Docker containers, <strong>Managed by Dockerd itself</strong>. Because containers are ephemeral by nature, any data written to their internal storage layers is permanently lost if the container is deleted. Volumes solve this by storing data outside the container's standard file-system in a host directory completely managed by Docker.</li>
+<li><strong>Docker registry</strong>: A centralized location where images are uploaded to, it could be public or private. Ex: <a href="https://hub.docker.com/">DockerHub</a></li>
+<li><strong>Docker networks</strong>: A virtual network config, allows independent containers to talk to each other.</li>
+</ul>
+<h2 id="image-internals-concepts">Image internals concepts</h2>
+<ul>
+<li>Structure to the name of an image:</li>
+</ul>
+<pre><code>[HOST[:PORT_NUMBER]/]PATH[:TAG]
+</code></pre>
+<p>Explanation:
+    - <code>HOST</code>: The optional registry hostname where the image is located. If no host is specified, Docker's public registry at <code>docker.io</code> is used by default.
+    - <code>PORT_NUMBER</code>: The registry port number if a hostname is provided
+    - <code>PATH</code>: The path of the image, consisting of slash-separated components. For Docker Hub, the format follows <code>[NAMESPACE/]REPOSITORY</code>, where namespace is either a user's or organization's name (mostly your account on docker hub). If no namespace is specified, <code>library</code> is used, which is the namespace for Docker Official Images.
+    - <code>TAG</code>: A custom, human-readable identifier that's typically used to identify different versions or variants of an image. If no tag is specified, <code>latest</code> is used by default.
+    Ex: <code>docker.io/library/nginx:latest</code> -&gt; <code>docker.io</code>: Host, <code>PATH</code>: namespace: library, Repo: nginx, tag: latest.</p>
+<blockquote>
+<p>If you have an image from one syllabus only, Ex: <code>debian:bookworm-slim</code>, <strong>debian</strong> is the image name and there is no <strong>namespace</strong> in this case, because debian is an official image provided by docker hub and the maintainers of this image.</p>
+</blockquote>
+<ul>
+<li><strong>Image layers / Union filesystem (OverlayFS)</strong>: An image isn't one blob, it's a stack of read-only layers (Filesystems on top of each other), one per <strong>Dockerfile</strong> instruction (<code>FROM</code>, <code>RUN</code>, <code>COPY</code>, etc.) see <a href="https://docs.docker.com/reference/dockerfile/">here</a>, also [[How_to_write_Dockerfile]]. Docker merges them into a single view using a union file-system. This is <em>why</em> <strong>builds cache</strong>: if a layer's instruction and its inputs haven't changed, Docker reuses the cached layer instead of rebuilding it. I can see the Image layer throw <code>docker image histroy</code>,<a href="https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/">See more</a>, Also: [[Understanding_Docker_File-System_Resources_and_chroot.md]] .</li>
+<li><strong>Build cache</strong>: Docker builds top-down and reuses any layer whose instruction + <a href="https://docs.docker.com/build/concepts/context/#what-is-a-build-context">context</a> hasn't changed since the last build. This is why you <code>COPY package.json</code> and run <code>npm install</code> <em>before</em> copying the rest of your source code, dependency layers stay cached even when your app code changes.</li>
+<li><strong>Multi-stage build</strong>: A <strong>Dockerfile</strong> with multiple <code>FROM</code> statements, where you build/compile in one stage and copy only the final artifact into a slim final stage. Keeps final images small — build tools never ship in production, see [[How_to_write_Dockerfile#Multi-stage pattern|here]]</li>
+<li><strong>.dockerignore</strong>: Same idea as <code>.gitignore</code>, excludes files from the build context sent to the daemon (keeps builds fast, avoids leaking secrets/<code>.git</code>/<code>node_modules</code> into the image).</li>
+</ul>
+<h2 id="container-lifecycle-process-model">Container lifecycle &amp; process model</h2>
+<ul>
+<li><strong>PID 1 in a container</strong>: The first process a container runs (or any Linux system runs) becomes PID 1,  same as <code>init</code> on a real Linux boot. This is a big deal for <strong>Inception</strong> project: PID 1 doesn't get default signal handling (Linux kernel forces it to ignore signals), so if your main process doesn't properly handle <code>SIGTERM</code>, <code>docker stop</code> won't gracefully kill it (it'll hang until forced). This is why some setups use a tiny init wrapper like <code>tini</code>. Read [[PID-1_Handling_for_container_termination]] .</li>
+<li><strong>Container states</strong>: <code>created</code> → <code>running</code> → (<code>paused</code>) → <code>exited</code>/<code>dead</code>. A stopped container isn't gone, its filesystem and metadata still exist until <code>docker rm</code>.</li>
+<li><strong>Restart policies</strong>: <code>--restart=on-failure</code>, <code>always</code>, <code>unless-stopped</code>. Controls whether Docker auto-restarts a container after it exits or the daemon restarts. Relevant for Inception since services should stay up (<code>restart: on-failure</code> or <code>always</code> in compose).</li>
+<li><strong>Foreground vs daemonized process inside a container</strong>: A container exits the moment its PID 1 process exits. This is why you can't just run <code>service nginx start</code> inside a container and expect it to stay alive, that command daemonizes and returns immediately, PID 1 exits, container dies. You need the actual binary running in the foreground (e.g. <code>nginx -g "daemon off;"</code>, <code>mysqld_safe</code>, <code>php-fpm -F</code>). This trips up almost everyone on Inception at first.</li>
+</ul>
+<h2 id="networking">Networking</h2>
+<ul>
+<li><strong>Bridge network</strong>: Docker's default network driver, creates a <strong>private virtual network</strong> on the host, containers get internal IPs, and Docker's embedded DNS resolves other containers by service/container name. This is what docker-compose gives you automatically.</li>
+<li><strong>Bind mount vs (named) volume</strong>: A <strong>bind mount</strong> maps an exact host path into the container (<code>-v /home/user/data:/var/data</code>), you control the host path directly. A <strong>named volume</strong> (<code>-v db_data:/var/lib/mysql</code>) is managed entirely by Docker under <code>/var/lib/docker/volumes/</code>, and is the more <strong>portable/recommended</strong> option. Inception typically requires named volumes bound to a specific host path (<code>/home/&lt;login&gt;/data/...</code>). see more [[Docker_Storage_Options_Comparison]]</li>
+</ul>
+<h2 id="registry-adjacent">Registry-adjacent</h2>
+<ul>
+<li><strong>Image tag vs digest</strong>: A tag (<code>nginx:1.25</code>) custom, human-readable label used to identify a specific version, variant, or release of a Docker image. A <strong>digest</strong> (<code>nginx@sha256:...</code>) is an immutable content hash, always points to the exact same bytes. Digests matter for reproducibility/security; tags are convenience.</li>
+<li><strong><code>docker context</code></strong>: Lets the Docker CLI target a different daemon (local, remote host, or a different Docker Desktop VM) without reconfiguring everything — useful once you're managing more than one Docker environment.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
