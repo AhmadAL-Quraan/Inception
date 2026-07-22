@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../PID-1_Handling_for_container_termination/">
+        <link rel="prev" href="../How%20to%20write%20Docker-compose/">
       
       
-        <link rel="next" href="../main_concept/">
+        <link rel="next" href="../PID-1_Handling_for_container_termination/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>Understanding Docker File System Resources and chroot - Inception</title>
+        <title>How to write Dockerfile - Inception</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-container-file-system" class="md-skip">
+        <a href="#main-commands" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Understanding Docker File System Resources and chroot
+              How to write Dockerfile
             
           </span>
         </div>
@@ -326,6 +326,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../1%29%20Concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1) Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker%20network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../Docker_Storage_Options_Comparison/" class="md-nav__link">
         
   
@@ -354,7 +410,60 @@
   
   
     <li class="md-nav__item">
-      <a href="../How_to_write_Dockerfile/" class="md-nav__link">
+      <a href="../How%20to%20write%20Docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to write Docker compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to write Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -370,6 +479,79 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#main-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        * RUN: Executes a command during the build process (Image creation, build time), and saves the result as a new layer (filesystem) in the image. /bin/bash -c inside it.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        &gt; Same broken pattern, shell at PID 1, signals never reach nginx. So always use exec form.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dockerfile-instructions-worth-knowing-distinctly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dockerfile instructions worth knowing distinctly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-stage-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-stage pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -407,138 +589,17 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Understanding Docker File System Resources and chroot
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Understanding Docker File System Resources and chroot
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-container-file-system" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Container File System
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-resource-consumption" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Resource Consumption
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-is-it-just-chroot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Is it just chroot?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Is it just chroot?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#comparison-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comparison Table
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="../main_concept/" class="md-nav__link">
+      <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Main concept
+    Understanding Docker File System Resources and chroot.md
   
 
     
@@ -584,10 +645,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-container-file-system" class="md-nav__link">
+  <a href="#main-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Container File System
+        Main commands
       
     </span>
   </a>
@@ -595,10 +656,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-resource-consumption" class="md-nav__link">
+  <a href="#run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Resource Consumption
+        * RUN: Executes a command during the build process (Image creation, build time), and saves the result as a new layer (filesystem) in the image. /bin/bash -c inside it.
       
     </span>
   </a>
@@ -606,30 +667,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-is-it-just-chroot" class="md-nav__link">
+  <a href="#same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Is it just chroot?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Is it just chroot?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#comparison-table" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comparison Table
+        &gt; Same broken pattern, shell at PID 1, signals never reach nginx. So always use exec form.
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#dockerfile-instructions-worth-knowing-distinctly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dockerfile instructions worth knowing distinctly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-stage-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-stage pattern
+      
+    </span>
+  </a>
   
 </li>
       
@@ -650,67 +716,164 @@
 
 
 
-  <h1>Understanding Docker File System Resources and chroot</h1>
+  <h1>How to write Dockerfile</h1>
 
-<p>Docker containers have their own isolated file system view, consume host resources directly, and are significantly more advanced than a basic <code>chroot</code> environment. </p>
-<p>While the concept of changing the root directory is similar to <code>chroot</code>, Docker relies on modern Linux kernel features to provide stronger isolation and strict resource control.</p>
-<hr />
-<h2 id="1-container-file-system">1. Container File System</h2>
-<p>Docker uses a <strong>layered, union file system</strong> (typically <code>overlay2</code> on modern Linux). </p>
+<div class="highlight"><pre><span></span><code>title: 
+style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
+minLevel: 0 # Include headings from the specified level
+maxLevel: 0 # Include headings up to the specified level
+include: 
+exclude: 
+includeLinks: true # Make headings clickable
+hideWhenEmpty: false # Hide TOC if no headings are found
+debugInConsole: false # Print debug info in Obsidian console
+</code></pre></div>
+<h2 id="main-commands">Main commands</h2>
 <ul>
-<li><strong>Read-Only Layers</strong>: The base Docker image consists of static, read-only layers.</li>
-<li><strong>Writable Layer</strong>: When a container runs, Docker adds a thin writable layer on top. Any files created, modified, or deleted only exist in this temporary layer. </li>
-<li><strong>Storage Location</strong>: On Linux hosts, these files are physically stored inside the <code>/var/lib/docker/</code> directory.</li>
+<li><code>FROM</code>:picks the <strong>base image</strong> your image starts from. -&gt; first layer
+is just downloading that filesystem snapshot, nothing more</li>
 </ul>
 <hr />
-<h2 id="2-resource-consumption">2. Resource Consumption</h2>
-<p>Containers are <strong>lightweight</strong> because they do not bundle a guest operating system or kernel.</p>
+<h2 id="run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it">* <code>RUN</code>: Executes a command <strong>during the build process</strong> (Image creation, build time), and saves the result as a new layer (filesystem) in the image. <code>/bin/bash -c</code> inside it.</h2>
 <ul>
-<li><strong>Shared Kernel</strong>: They share the host system's kernel and communicate directly with your hardware.</li>
-<li><strong>Resource Limits</strong>: They consume CPU, RAM, and disk space directly from your host resources. </li>
-<li><strong>Control</strong>: Docker uses a Linux feature called <strong>cgroups</strong> (control groups) to limit exactly how much CPU or memory a container is allowed to take.</li>
+<li><code>COPY</code>: Copies files from your <strong>host machine</strong> (build context) into the image. 
+    Ex: <code>COPY host-machine_fs docker_fs</code></li>
 </ul>
 <hr />
-<h2 id="3-is-it-just-chroot">3. Is it just <code>chroot</code>?</h2>
-<p><strong>No, but <code>chroot</code> was the spiritual ancestor of containers</strong>. A <code>chroot</code> (change root) environment only isolates the file system path. Processes inside a <code>chroot</code> can still see host network traffic, system clocks, and other host processes. </p>
-<p>Docker goes much further by combining <code>chroot</code>-like behavior (<code>pivot_root</code>) with <strong>Linux Namespaces</strong>. Namespaces completely virtualize and hide the rest of the system from the container.</p>
-<h3 id="comparison-table">Comparison Table</h3>
+<ul>
+<li><code>Entrypoint</code>: defines the command that runs when the container starts, it becomes <code>PID 1</code> .<ul>
+<li>
+<p>Two forms:
+    1) <code>ENTRYPOINT ["nginx", "-g", "daemon off;"]</code> --&gt; (<strong>exec form</strong>, Runs the binary <strong>directly</strong> — no shell involved. Binary becomes <code>PID 1</code>.)
+    2) <code>ENTRYPOINT nginx -g "daemon off;</code>--&gt; Runs as <code>/bin/sh -c "nginx -g 'daemon off;'"</code> — the <strong>shell</strong> becomes <code>PID 1</code>, nginx is a child underneath it.</p>
+<h2 id="same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form">&gt; Same broken pattern, shell at <code>PID 1</code>, signals never reach nginx. So always use <strong>exec form</strong>.</h2>
+<ul>
+<li><code>CMD</code>: provides <strong>default arguments</strong> to <code>ENTRYPOINT</code> (overridable), or a default command if no <code>ENTRYPOINT</code> is set.<ul>
+<li>The main purpose of this, is to overridable argument for <code>ENTRYPOINT</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">]</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;daemon off;&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Normal run (uses CMD defaults):</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>my-image
+<span class="c1"># runs: nginx -g &quot;daemon off;&quot;</span>
+</code></pre></div>
+<strong>Override CMD at runtime:</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>my-image<span class="w"> </span>-v
+<span class="c1"># runs nginx -v</span>
+</code></pre></div></p>
+<p><strong>Override ENTRYPOINT itself:</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--entrypoint<span class="w"> </span>sh<span class="w"> </span>my-image
+<span class="c1"># runs: sh</span>
+</code></pre></div></p>
+<hr />
+<ul>
+<li><code>ARG</code>: a variable available <strong>only during build time</strong>, gone after image is built.
+<div class="highlight"><pre><span></span><code><span class="k">ARG</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span><span class="m">1</span>.0
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$VERSION</span><span class="w">      </span>#<span class="w"> </span>works<span class="w"> </span>during<span class="w"> </span>build
+</code></pre></div></li>
+</ul>
+<hr />
+<ul>
+<li><code>ENV</code>: a variable available at <strong>runtime</strong> inside the running container, baked into the image permanently.
+<div class="highlight"><pre><span></span><code><span class="k">ENV</span><span class="w"> </span><span class="nv">DB_HOST</span><span class="o">=</span>mariadb
+</code></pre></div></li>
+</ul>
+<p>Any process running inside the container can read it via <code>printenv</code> or <code>$DB_HOST</code>.</p>
+<blockquote>
+<p>One important security note: Never put passwords in <code>ENV</code> — they're visible to anyone who runs <code>docker inspect</code> on the image. That's exactly why Inception requires <code>.env</code> files and Docker secrets instead.</p>
+</blockquote>
+<hr />
+<ul>
+<li><code>WORKDIR</code>: Create directories and move into them inside images (working directory).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">node:18</span>
+
+<span class="c"># 1. Creates /app and moves into it</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+
+<span class="c"># 2. Copies package.json from your host machine into /app/</span>
+<span class="k">COPY</span><span class="w"> </span>package.json<span class="w"> </span>.
+
+<span class="c"># 3. Executes &#39;npm install&#39; inside /app/</span>
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install
+
+<span class="c"># 4. Copies the rest of your project into /app/</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+
+<span class="c"># 5. Starts the app inside /app/ when the container boots</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;npm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
+</code></pre></div>
+<hr />
+<blockquote>
+<p>All <code>Dockerfile</code> instructions happened at <strong>build time</strong> except <code>ENTRYPOINT</code> and <code>CMD</code>, happened at <strong>runtime</strong>(container creation using <code>docker run</code>). </p>
+<p>Every <code>Dockerfile</code> instruction that modifies the filesystem creates a new layer, including <code>COPY</code>.</p>
+</blockquote>
+<h2 id="dockerfile-instructions-worth-knowing-distinctly">Dockerfile instructions worth knowing distinctly</h2>
+<ul>
+<li><strong><code>ENTRYPOINT</code> vs <code>CMD</code></strong>: <code>ENTRYPOINT</code> sets the fixed executable that always runs; <code>CMD</code> supplies default <em>arguments</em> to it (overridable at <code>docker run</code>). Often used together: <code>ENTRYPOINT ["nginx"]</code>, <code>CMD ["-g", "daemon off;"]</code>.</li>
+</ul>
+<hr />
+<ul>
+<li><strong><code>ARG</code> vs <code>ENV</code></strong>: <code>ARG</code> is a build-time-only variable (not present in the final image or running container). <code>ENV</code> persists into the running container and is visible via <code>docker inspect</code> / <code>printenv</code>. Never put secrets in either — they end up baked into image layers or history.</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: left;"><code>chroot</code> Jail</th>
-<th style="text-align: left;">Docker Container</th>
+<th></th>
+<th><code>ARG</code></th>
+<th><code>ENV</code></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>File System</strong></td>
-<td style="text-align: left;">Isolates directory path.</td>
-<td style="text-align: left;">Uses advanced layered union filesystems (<code>overlay2</code>).</td>
+<td>Available at build time</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Process (PID)</strong></td>
-<td style="text-align: left;">Can see and kill host processes.</td>
-<td style="text-align: left;">Completely hidden; container thinks its main app is PID 1.</td>
+<td>Available at runtime</td>
+<td>❌</td>
+<td>✅</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Network</strong></td>
-<td style="text-align: left;">Shares host network card and IP.</td>
-<td style="text-align: left;">Gets its own virtual network card, IP, and routing table.</td>
+<td>Visible in <code>docker inspect</code></td>
+<td>❌</td>
+<td>✅</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Resources</strong></td>
-<td style="text-align: left;">Cannot natively restrict CPU/RAM.</td>
-<td style="text-align: left;">Enforces strict CPU and memory limits via <code>cgroups</code>.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Security</strong></td>
-<td style="text-align: left;">Easy to break out of (not a security boundary).</td>
-<td style="text-align: left;">Hardened isolation boundary.</td>
+<td>Use case</td>
+<td>Build configuration</td>
+<td>App configuration</td>
 </tr>
 </tbody>
 </table>
+<h2 id="multi-stage-pattern">Multi-stage pattern</h2>
+<p>Multi-stage builds introduce multiple stages in your Dockerfile, each with a specific purpose. Think of it like the ability to run different parts of a build in multiple different environments, concurrently. By separating the build environment from the final runtime environment, you can significantly reduce the image size and attack surface. This is especially beneficial for applications with large build dependencies.</p>
+<p>Ex: simple example of multi stage pattern to run C code that prints hello world.</p>
+<p>Compilation will be on a specific stage and running will on another</p>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build-stage</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gcc
+<span class="k">COPY</span><span class="w"> </span>hello.c<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>gcc<span class="w"> </span>hello.c<span class="w"> </span>-o<span class="w"> </span>hello
+
+<span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">run-stage</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build-stage<span class="w"> </span>hello<span class="w"> </span>.
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./hello&quot;</span><span class="p">]</span>
+</code></pre></div>
+<ul>
+<li>The first <code>FROM</code> (build-stage), has compiled the file.</li>
+<li>The second <code>FROM</code> (run-stage), has copied the result compiled file from build-stage and run it.</li>
+</ul>
+<blockquote>
+<p>Only the last <code>FROM</code> is the one which the image is going to keep and makes the layer from. Each <code>FROM</code> is a separated layer and filesystem.</p>
+</blockquote>
 
 
 

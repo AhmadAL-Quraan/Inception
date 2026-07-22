@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../Docker_Storage_Options_Comparison/">
+        <link rel="prev" href="../1%29%20Concepts/">
       
       
-        <link rel="next" href="../PID-1_Handling_for_container_termination/">
+        <link rel="next" href="../Docker_Storage_Options_Comparison/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>How to write Dockerfile - Inception</title>
+        <title>Docker network - Inception</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#main-commands" class="md-skip">
+        <a href="#main-concept" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              How to write Dockerfile
+              Docker network
             
           </span>
         </div>
@@ -326,14 +326,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../Docker_Storage_Options_Comparison/" class="md-nav__link">
+      <a href="../1%29%20Concepts/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Docker Storage Options Comparison
+    1) Concepts
   
 
     
@@ -368,7 +368,7 @@
   <span class="md-ellipsis">
     
   
-    How to write Dockerfile
+    Docker network
   
 
     
@@ -386,7 +386,7 @@
   <span class="md-ellipsis">
     
   
-    How to write Dockerfile
+    Docker network
   
 
     
@@ -410,10 +410,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#main-commands" class="md-nav__link">
+  <a href="#main-concept" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Main commands
+        Main concept
       
     </span>
   </a>
@@ -421,10 +421,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it" class="md-nav__link">
+  <a href="#bridge-driver" class="md-nav__link">
     <span class="md-ellipsis">
       
-        * RUN: Executes a command during the build process (Image creation, build time), and saves the result as a new layer (filesystem) in the image. /bin/bash -c inside it.
+        Bridge driver
       
     </span>
   </a>
@@ -432,10 +432,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form" class="md-nav__link">
+  <a href="#physical-virtual-concept" class="md-nav__link">
     <span class="md-ellipsis">
       
-        &gt; Same broken pattern, shell at PID 1, signals never reach nginx. So always use exec form.
+        Physical / virtual concept
       
     </span>
   </a>
@@ -443,21 +443,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dockerfile-instructions-worth-knowing-distinctly" class="md-nav__link">
+  <a href="#internal-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dockerfile instructions worth knowing distinctly
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multi-stage-pattern" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Multi-stage pattern
+        Internal model
       
     </span>
   </a>
@@ -468,6 +457,90 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Storage_Options_Comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Storage Options Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How%20to%20write%20Docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to write Docker compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How%20to%20write%20Dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to write Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -508,42 +581,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../Understanding_Docker_File-System_Resources_and_chroot/" class="md-nav__link">
+      <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Understanding Docker File System Resources and chroot
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../main_concept/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Main concept
+    Understanding Docker File System Resources and chroot.md
   
 
     
@@ -589,10 +634,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#main-commands" class="md-nav__link">
+  <a href="#main-concept" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Main commands
+        Main concept
       
     </span>
   </a>
@@ -600,10 +645,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it" class="md-nav__link">
+  <a href="#bridge-driver" class="md-nav__link">
     <span class="md-ellipsis">
       
-        * RUN: Executes a command during the build process (Image creation, build time), and saves the result as a new layer (filesystem) in the image. /bin/bash -c inside it.
+        Bridge driver
       
     </span>
   </a>
@@ -611,10 +656,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form" class="md-nav__link">
+  <a href="#physical-virtual-concept" class="md-nav__link">
     <span class="md-ellipsis">
       
-        &gt; Same broken pattern, shell at PID 1, signals never reach nginx. So always use exec form.
+        Physical / virtual concept
       
     </span>
   </a>
@@ -622,21 +667,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dockerfile-instructions-worth-knowing-distinctly" class="md-nav__link">
+  <a href="#internal-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dockerfile instructions worth knowing distinctly
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multi-stage-pattern" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Multi-stage pattern
+        Internal model
       
     </span>
   </a>
@@ -660,164 +694,55 @@
 
 
 
-  <h1>How to write Dockerfile</h1>
+  <h1>Docker network</h1>
 
-<div class="highlight"><pre><span></span><code>title: 
-style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
-minLevel: 0 # Include headings from the specified level
-maxLevel: 0 # Include headings up to the specified level
-include: 
-exclude: 
-includeLinks: true # Make headings clickable
-hideWhenEmpty: false # Hide TOC if no headings are found
-debugInConsole: false # Print debug info in Obsidian console
-</code></pre></div>
-<h2 id="main-commands">Main commands</h2>
+<h2 id="main-concept">Main concept</h2>
 <ul>
-<li><code>FROM</code>:picks the <strong>base image</strong> your image starts from. -&gt; first layer
-is just downloading that filesystem snapshot, nothing more</li>
+<li><strong>DRIVER</strong>: Engine/ Blueprint underlying network tech inside docker.</li>
 </ul>
-<hr />
-<h2 id="run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it">* <code>RUN</code>: Executes a command <strong>during the build process</strong> (Image creation, build time), and saves the result as a new layer (filesystem) in the image. <code>/bin/bash -c</code> inside it.</h2>
-<ul>
-<li><code>COPY</code>: Copies files from your <strong>host machine</strong> (build context) into the image. 
-    Ex: <code>COPY host-machine_fs docker_fs</code></li>
-</ul>
-<hr />
-<ul>
-<li><code>Entrypoint</code>: defines the command that runs when the container starts, it becomes <code>PID 1</code> .<ul>
-<li>
-<p>Two forms:
-    1) <code>ENTRYPOINT ["nginx", "-g", "daemon off;"]</code> --&gt; (<strong>exec form</strong>, Runs the binary <strong>directly</strong> — no shell involved. Binary becomes <code>PID 1</code>.)
-    2) <code>ENTRYPOINT nginx -g "daemon off;</code>--&gt; Runs as <code>/bin/sh -c "nginx -g 'daemon off;'"</code> — the <strong>shell</strong> becomes <code>PID 1</code>, nginx is a child underneath it.</p>
-<h2 id="same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form">&gt; Same broken pattern, shell at <code>PID 1</code>, signals never reach nginx. So always use <strong>exec form</strong>.</h2>
-<ul>
-<li><code>CMD</code>: provides <strong>default arguments</strong> to <code>ENTRYPOINT</code> (overridable), or a default command if no <code>ENTRYPOINT</code> is set.<ul>
-<li>The main purpose of this, is to overridable argument for <code>ENTRYPOINT</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">]</span>
-<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;daemon off;&quot;</span><span class="p">]</span>
-</code></pre></div>
-<p><strong>Normal run (uses CMD defaults):</strong>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>my-image
-<span class="c1"># runs: nginx -g &quot;daemon off;&quot;</span>
-</code></pre></div>
-<strong>Override CMD at runtime:</strong>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>my-image<span class="w"> </span>-v
-<span class="c1"># runs nginx -v</span>
-</code></pre></div></p>
-<p><strong>Override ENTRYPOINT itself:</strong>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--entrypoint<span class="w"> </span>sh<span class="w"> </span>my-image
-<span class="c1"># runs: sh</span>
-</code></pre></div></p>
-<hr />
-<ul>
-<li><code>ARG</code>: a variable available <strong>only during build time</strong>, gone after image is built.
-<div class="highlight"><pre><span></span><code><span class="k">ARG</span><span class="w"> </span><span class="nv">VERSION</span><span class="o">=</span><span class="m">1</span>.0
-<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$VERSION</span><span class="w">      </span>#<span class="w"> </span>works<span class="w"> </span>during<span class="w"> </span>build
-</code></pre></div></li>
-</ul>
-<hr />
-<ul>
-<li><code>ENV</code>: a variable available at <strong>runtime</strong> inside the running container, baked into the image permanently.
-<div class="highlight"><pre><span></span><code><span class="k">ENV</span><span class="w"> </span><span class="nv">DB_HOST</span><span class="o">=</span>mariadb
-</code></pre></div></li>
-</ul>
-<p>Any process running inside the container can read it via <code>printenv</code> or <code>$DB_HOST</code>.</p>
 <blockquote>
-<p>One important security note: Never put passwords in <code>ENV</code> — they're visible to anyone who runs <code>docker inspect</code> on the image. That's exactly why Inception requires <code>.env</code> files and Docker secrets instead.</p>
+<p>Main drivers: Bridge, Host, overlay, macvlan, overlay, None</p>
 </blockquote>
 <hr />
 <ul>
-<li><code>WORKDIR</code>: Create directories and move into them inside images (working directory).</li>
+<li><strong>Network</strong>: Instance created from a driver.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">node:18</span>
-
-<span class="c"># 1. Creates /app and moves into it</span>
-<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
-
-<span class="c"># 2. Copies package.json from your host machine into /app/</span>
-<span class="k">COPY</span><span class="w"> </span>package.json<span class="w"> </span>.
-
-<span class="c"># 3. Executes &#39;npm install&#39; inside /app/</span>
-<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install
-
-<span class="c"># 4. Copies the rest of your project into /app/</span>
-<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
-
-<span class="c"># 5. Starts the app inside /app/ when the container boots</span>
-<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;npm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
-</code></pre></div>
-<hr />
-<blockquote>
-<p>All <code>Dockerfile</code> instructions happened at <strong>build time</strong> except <code>ENTRYPOINT</code> and <code>CMD</code>, happened at <strong>runtime</strong>(container creation using <code>docker run</code>). </p>
-<p>Every <code>Dockerfile</code> instruction that modifies the filesystem creates a new layer, including <code>COPY</code>.</p>
-</blockquote>
-<h2 id="dockerfile-instructions-worth-knowing-distinctly">Dockerfile instructions worth knowing distinctly</h2>
+<p>Ex: <code>BRIDGE Driver -&gt; Bridge (default "docker0")</code></p>
+<h2 id="bridge-driver">Bridge driver</h2>
 <ul>
-<li><strong><code>ENTRYPOINT</code> vs <code>CMD</code></strong>: <code>ENTRYPOINT</code> sets the fixed executable that always runs; <code>CMD</code> supplies default <em>arguments</em> to it (overridable at <code>docker run</code>). Often used together: <code>ENTRYPOINT ["nginx"]</code>, <code>CMD ["-g", "daemon off;"]</code>.</li>
-</ul>
-<hr />
-<ul>
-<li><strong><code>ARG</code> vs <code>ENV</code></strong>: <code>ARG</code> is a build-time-only variable (not present in the final image or running container). <code>ENV</code> persists into the running container and is visible via <code>docker inspect</code> / <code>printenv</code>. Never put secrets in either — they end up baked into image layers or history.</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th></th>
-<th><code>ARG</code></th>
-<th><code>ENV</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Available at build time</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Available at runtime</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Visible in <code>docker inspect</code></td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>Use case</td>
-<td>Build configuration</td>
-<td>App configuration</td>
-</tr>
-</tbody>
-</table>
-<h2 id="multi-stage-pattern">Multi-stage pattern</h2>
-<p>Multi-stage builds introduce multiple stages in your Dockerfile, each with a specific purpose. Think of it like the ability to run different parts of a build in multiple different environments, concurrently. By separating the build environment from the final runtime environment, you can significantly reduce the image size and attack surface. This is especially beneficial for applications with large build dependencies.</p>
-<p>Ex: simple example of multi stage pattern to run C code that prints hello world.</p>
-<p>Compilation will be on a specific stage and running will on another</p>
-<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build-stage</span>
-<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gcc
-<span class="k">COPY</span><span class="w"> </span>hello.c<span class="w"> </span>.
-<span class="k">RUN</span><span class="w"> </span>gcc<span class="w"> </span>hello.c<span class="w"> </span>-o<span class="w"> </span>hello
-
-<span class="k">FROM</span><span class="w"> </span><span class="s">debian:bookworm-slim</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">run-stage</span>
-<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>build-stage<span class="w"> </span>hello<span class="w"> </span>.
-<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./hello&quot;</span><span class="p">]</span>
-</code></pre></div>
-<ul>
-<li>The first <code>FROM</code> (build-stage), has compiled the file.</li>
-<li>The second <code>FROM</code> (run-stage), has copied the result compiled file from build-stage and run it.</li>
+<li>Driver type, acts as a <strong>virtual switch</strong> connecting containers with <strong>router-features</strong> like IP, NAT, DNS, Default gateway, ... (local area network LAN).</li>
+<li>It's the default driver that docker uses if nothing specified.</li>
 </ul>
 <blockquote>
-<p>Only the last <code>FROM</code> is the one which the image is going to keep and makes the layer from. Each <code>FROM</code> is a separated layer and filesystem.</p>
+<p><strong>"Router-features"</strong>, but technically the bridge itself operates at L2 (switching, MAC-based). The IP/NAT/DNS layer is added by <strong>Docker's networking stack</strong> (iptables rules + embedded DNS server), not the bridge device itself doing routing. Still, from a user's mental model, calling it "switch + router features" is a very reasonable simplification.</p>
 </blockquote>
+<p>Two types:
+1) <strong>Default bridge</strong> ("docker0"): Auto created as an instance of Bridge driver, IP only communication (NO DNS).
+2) <strong>Custom bridge</strong>: User created using <code>docker network create --driver bridge &lt;network_name&gt;</code>, DNS name resolution, better isolation, standard way of making docker network.</p>
+<h2 id="physical-virtual-concept">Physical / virtual concept</h2>
+<ul>
+<li>Interface: A network endpoint visible, type <code>ip a</code>.</li>
+</ul>
+<p><code>Container has interface gig/1  &lt;--veth--&gt; switch (docker0) has interface gig/0</code></p>
+<p><img alt="Pasted image 20260723010331.png" src="../../pic/Pasted%20image%2020260723010331.png" /></p>
+<blockquote>
+<p>These are three separate bridge interfaces, each belong to a different docker network.
+<code>br-xxxx</code>: Is a <strong>Custom bridge</strong>.</p>
+</blockquote>
+<hr />
+<ul>
+<li>Veth pair:  <code>virtaul ethernet cable</code>,  which connects container's namespace to the bridge.</li>
+</ul>
+<blockquote>
+<p>namespace: Is which makes a container isolated from each other, contains a separate network stack, veth here is used to make them connected again with the host.</p>
+</blockquote>
+<h2 id="internal-model">Internal model</h2>
+<p><img alt="Pasted image 20260723011120.png" src="../../pic/Pasted%20image%2020260723011120.png" /></p>
+<p>Important notes:
+* Each container has it's own <strong>private IP address (only)</strong>, from bridge networks's subnet (by docker built-in DHCP like). 
+    * <strong>Container → internet (outbound)</strong>: the container sends traffic from its private IP. Docker's iptables rules do <strong>SNAT</strong> (masquerade) — rewriting the source IP to the <strong>host's</strong> IP before it leaves the machine. To the outside world, it looks like the traffic came from the host, not the container.
+    * <strong>Internet → container (inbound)</strong>: someone connects to the <strong>host's</strong> public IP on a specific port. Docker's <strong>DNAT</strong> rule (set up by your <code>-p host_port:container_port</code> flag) rewrites the destination to the container's private IP:port and forwards it in.
+* A container could be inside more than one network at the same time (different IP address per network).</p>
 
 
 

@@ -1,0 +1,853 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../Resources/">
+      
+      
+        <link rel="next" href="../Docker%20network/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1) Concepts - Inception</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#docker-phrases-you-will-see-often" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Inception" class="md-header__button md-logo" aria-label="Inception" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inception
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1) Concepts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Inception" class="md-nav__button md-logo" aria-label="Inception" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Inception
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome to Inception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Docker%20Commands%20Cheat%20Sheet%20%28Frequently%20used%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Commands Cheat Sheet (Frequently used)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Oh my dock
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Oh my dock
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1) Concepts
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1) Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker-phrases-you-will-see-often" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker phrases you will see often
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-internals-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image internals concepts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#container-lifecycle-process-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container lifecycle &amp; process model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registry-adjacent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registry-adjacent
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker%20network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Docker_Storage_Options_Comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Storage Options Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How%20to%20write%20Docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to write Docker compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How%20to%20write%20Dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to write Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PID-1_Handling_for_container_termination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PID 1 Handling for container termination
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding Docker File System Resources and chroot.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker-phrases-you-will-see-often" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker phrases you will see often
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-internals-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image internals concepts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#container-lifecycle-process-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container lifecycle &amp; process model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registry-adjacent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registry-adjacent
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>1) Concepts</h1>
+
+<h2 id="docker-phrases-you-will-see-often">Docker phrases you will see often</h2>
+<ul>
+<li><strong>Docker-client</strong>: The interface (CLI commands or GUI) that allow users to interact with Docker ecosystem (mainly Dockerd).</li>
+<li><strong>Docker Engine API</strong>: Docker provides an API for interacting with the Docker daemon (called the Docker Engine API), as well as SDKs for Go and Python.</li>
+<li><strong>Dockerd</strong>: a persistent background service that manages Docker containers, images, networks, and storage volumes.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Docker-client --&gt; Docker Engine API --&gt; Dockerd
+</code></pre></div>
+<ul>
+<li><strong>Docker</strong>: It is a container engine that uses the Linux Kernel features like <strong>namespaces</strong> and <strong>control groups</strong>, to create containers on top of an operating system. So you can call it <strong>OS-level virtualization</strong>.</li>
+<li><strong>Containers</strong>: Object of an image. Isolated process (Not a mini VM or smthing), that has it's own configurations to run a specific application (it's application layer virtualization).</li>
+<li><strong>Image</strong>: Class or a package, that has the necessary configurations and layers to run a container. It's a <strong>read-only</strong>, immutable template made of layered system (<strong>multiple read-only filesystem layers and configuration files metadata</strong>), not a typical file that you can read.</li>
+<li><strong>Dockerfile</strong>: Commands, script, text-based doc, that it's used to make an image. See <a href="../How%20to%20write%20Dockerfile/">How to write Dockerfile</a> .</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Dockerfile ---&gt; image ---&gt; container
+</code></pre></div>
+<ul>
+<li><strong>Docker-compose</strong>: is an <strong>orchestration tool</strong>. It reads a YAML file — usually <code>docker-compose.yml</code> — where you describe:<ul>
+<li>Which <strong>images</strong> to build or pull</li>
+<li>What <strong>containers</strong> to run from them</li>
+<li>How they're connected (networks, volumes, ports, env vars, dependencies between them)</li>
+<li>You don't need a <code>Dockerfile</code> if you want to use a pre-built images, directly from a register like <code>Docker-hub</code>, it can pull them directly from it.</li>
+<li>If you want to make a <strong>Custom image</strong>, you must have <code>Dockerfile</code>.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Dockerfile        → recipe for ONE image
+docker run         → starts ONE container from an image
+docker-compose.yml → recipe for MULTIPLE containers working together
+docker-compose up  → builds/starts ALL of them at once, wired together
+</code></pre></div>
+<ul>
+<li><strong>Docker volumes</strong>: the preferred and safest mechanism for persisting data generated and used by Docker containers, <strong>Managed by Dockerd itself</strong>. Because containers are ephemeral by nature, any data written to their internal storage layers is permanently lost if the container is deleted. Volumes solve this by storing data outside the container's standard file-system in a host directory completely managed by Docker.</li>
+<li><strong>Docker registry</strong>: A centralized location where images are uploaded to, it could be public or private. Ex: <a href="https://hub.docker.com/">DockerHub</a></li>
+<li><strong>Docker networks</strong>: A virtual network config, allows independent containers to talk to each other.</li>
+</ul>
+<h2 id="image-internals-concepts">Image internals concepts</h2>
+<ul>
+<li>Structure to the name of an image:
+<div class="highlight"><pre><span></span><code>[HOST[:PORT_NUMBER]/]PATH[:TAG]
+</code></pre></div>
+Explanation:<ul>
+<li><code>HOST</code>: The optional registry hostname where the image is located. If no host is specified, Docker's public registry at <code>docker.io</code> is used by default.</li>
+<li><code>PORT_NUMBER</code>: The registry port number if a hostname is provided</li>
+<li><code>PATH</code>: The path of the image, consisting of slash-separated components. For Docker Hub, the format follows <code>[NAMESPACE/]REPOSITORY</code>, where namespace is either a user's or organization's name (mostly your account on docker hub). If no namespace is specified, <code>library</code> is used, which is the namespace for Docker Official Images.</li>
+<li><code>TAG</code>: A custom, human-readable identifier that's typically used to identify different versions or variants of an image. If no tag is specified, <code>latest</code> is used by default.
+Ex: <code>docker.io/library/nginx:latest</code> -&gt; <code>docker.io</code>: Host, <code>PATH</code>: namespace: library, Repo: nginx, tag: latest.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>If you have an image from one syllabus only, Ex: <code>debian:bookworm-slim</code>, <strong>debian</strong> is the image name and there is no <strong>namespace</strong> in this case, because debian is an official image provided by docker hub and the maintainers of this image.</p>
+</blockquote>
+<ul>
+<li><strong>Image layers / Union filesystem (OverlayFS)</strong>: An image isn't one blob, it's a stack of read-only layers (Filesystems on top of each other), one per <strong>Dockerfile</strong> instruction (<code>FROM</code>, <code>RUN</code>, <code>COPY</code>, etc.) see <a href="https://docs.docker.com/reference/dockerfile/">here</a>, also <a href="../How%20to%20write%20Dockerfile/">How to write Dockerfile</a>. Docker merges them into a single view using a union file-system. This is <em>why</em> <strong>builds cache</strong>: if a layer's instruction and its inputs haven't changed, Docker reuses the cached layer instead of rebuilding it. I can see the Image layer throw <code>docker image histroy</code>,<a href="https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/">See more</a>, Also: <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/">Understanding_Docker_File-System_Resources_and_chroot.md</a> .</li>
+<li><strong>Build cache</strong>: Docker builds top-down and reuses any layer whose instruction + <a href="https://docs.docker.com/build/concepts/context/#what-is-a-build-context">context</a> hasn't changed since the last build. This is why you <code>COPY package.json</code> and run <code>npm install</code> <em>before</em> copying the rest of your source code, dependency layers stay cached even when your app code changes.</li>
+<li><strong>Multi-stage build</strong>: A <strong>Dockerfile</strong> with multiple <code>FROM</code> statements, where you build/compile in one stage and copy only the final artifact into a slim final stage. Keeps final images small — build tools never ship in production, see <a href="../How%20to%20write%20Dockerfile/#multi-stage-pattern">here</a></li>
+<li><strong>.dockerignore</strong>: Same idea as <code>.gitignore</code>, excludes files from the build context sent to the daemon (keeps builds fast, avoids leaking secrets/<code>.git</code>/<code>node_modules</code> into the image).</li>
+</ul>
+<h2 id="container-lifecycle-process-model">Container lifecycle &amp; process model</h2>
+<ul>
+<li><strong>PID 1 in a container</strong>: The first process a container runs (or any Linux system runs) becomes PID 1,  same as <code>init</code> on a real Linux boot. This is a big deal for <strong>Inception</strong> project: PID 1 doesn't get default signal handling (Linux kernel forces it to ignore signals), so if your main process doesn't properly handle <code>SIGTERM</code>, <code>docker stop</code> won't gracefully kill it (it'll hang until forced). This is why some setups use a tiny init wrapper like <code>tini</code>. Read <a href="../PID-1_Handling_for_container_termination/">PID-1_Handling_for_container_termination</a> .</li>
+<li><strong>Container states</strong>: <code>created</code> → <code>running</code> → (<code>paused</code>) → <code>exited</code>/<code>dead</code>. A stopped container isn't gone, its filesystem and metadata still exist until <code>docker rm</code>.</li>
+<li><strong>Restart policies</strong>: <code>--restart=on-failure</code>, <code>always</code>, <code>unless-stopped</code>. Controls whether Docker auto-restarts a container after it exits or the daemon restarts. Relevant for Inception since services should stay up (<code>restart: on-failure</code> or <code>always</code> in compose).</li>
+<li><strong>Foreground vs daemonized process inside a container</strong>: A container exits the moment its PID 1 process exits. This is why you can't just run <code>service nginx start</code> inside a container and expect it to stay alive, that command daemonizes and returns immediately, PID 1 exits, container dies. You need the actual binary running in the foreground (e.g. <code>nginx -g "daemon off;"</code>, <code>mysqld_safe</code>, <code>php-fpm -F</code>). This trips up almost everyone on Inception at first.</li>
+</ul>
+<h2 id="networking">Networking</h2>
+<ul>
+<li><strong>Bridge network</strong>: Docker's default network driver, creates a <strong>private virtual network</strong> on the host, containers get internal IPs, and Docker's embedded DNS resolves other containers by service/container name. This is what docker-compose gives you automatically.</li>
+<li><strong>Bind mount vs (named) volume</strong>: A <strong>bind mount</strong> maps an exact host path into the container (<code>-v /home/user/data:/var/data</code>), you control the host path directly. A <strong>named volume</strong> (<code>-v db_data:/var/lib/mysql</code>) is managed entirely by Docker under <code>/var/lib/docker/volumes/</code>, and is the more <strong>portable/recommended</strong> option. Inception typically requires named volumes bound to a specific host path (<code>/home/&lt;login&gt;/data/...</code>). see more <a href="../Docker_Storage_Options_Comparison/">Docker_Storage_Options_Comparison</a></li>
+</ul>
+<h2 id="registry-adjacent">Registry-adjacent</h2>
+<ul>
+<li><strong>Image tag vs digest</strong>: A tag (<code>nginx:1.25</code>) custom, human-readable label used to identify a specific version, variant, or release of a Docker image. A <strong>digest</strong> (<code>nginx@sha256:...</code>) is an immutable content hash, always points to the exact same bytes. Digests matter for reproducibility/security; tags are convenience.</li>
+<li><strong><code>docker context</code></strong>: Lets the Docker CLI target a different daemon (local, remote host, or a different Docker Desktop VM) without reconfiguring everything — useful once you're managing more than one Docker environment.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
