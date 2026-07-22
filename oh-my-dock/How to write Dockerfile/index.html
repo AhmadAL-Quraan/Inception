@@ -505,17 +505,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        * RUN: Executes a command during the build process (Image creation, build time), and saves the result as a new layer (filesystem) in the image. /bin/bash -c inside it.
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -656,17 +645,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        * RUN: Executes a command during the build process (Image creation, build time), and saves the result as a new layer (filesystem) in the image. /bin/bash -c inside it.
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#same-broken-pattern-shell-at-pid-1-signals-never-reach-nginx-so-always-use-exec-form" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -718,23 +696,16 @@
 
   <h1>How to write Dockerfile</h1>
 
-<div class="highlight"><pre><span></span><code>title: 
-style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
-minLevel: 0 # Include headings from the specified level
-maxLevel: 0 # Include headings up to the specified level
-include: 
-exclude: 
-includeLinks: true # Make headings clickable
-hideWhenEmpty: false # Hide TOC if no headings are found
-debugInConsole: false # Print debug info in Obsidian console
-</code></pre></div>
 <h2 id="main-commands">Main commands</h2>
 <ul>
 <li><code>FROM</code>:picks the <strong>base image</strong> your image starts from. -&gt; first layer
 is just downloading that filesystem snapshot, nothing more</li>
 </ul>
 <hr />
-<h2 id="run-executes-a-command-during-the-build-process-image-creation-build-time-and-saves-the-result-as-a-new-layer-filesystem-in-the-image-binbash-c-inside-it">* <code>RUN</code>: Executes a command <strong>during the build process</strong> (Image creation, build time), and saves the result as a new layer (filesystem) in the image. <code>/bin/bash -c</code> inside it.</h2>
+<ul>
+<li><code>RUN</code>: Executes a command <strong>during the build process</strong> (Image creation, build time), and saves the result as a new layer (filesystem) in the image. <code>/bin/bash -c</code> inside it.</li>
+</ul>
+<hr />
 <ul>
 <li><code>COPY</code>: Copies files from your <strong>host machine</strong> (build context) into the image. 
     Ex: <code>COPY host-machine_fs docker_fs</code></li>
