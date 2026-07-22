@@ -717,8 +717,8 @@
 <p><strong>"Router-features"</strong>, but technically the bridge itself operates at L2 (switching, MAC-based). The IP/NAT/DNS layer is added by <strong>Docker's networking stack</strong> (iptables rules + embedded DNS server), not the bridge device itself doing routing. Still, from a user's mental model, calling it "switch + router features" is a very reasonable simplification.</p>
 </blockquote>
 <p>Two types:
-1) <strong>Default bridge</strong> ("docker0"): Auto created as an instance of Bridge driver, IP only communication (NO DNS).
-2) <strong>Custom bridge</strong>: User created using <code>docker network create --driver bridge &lt;network_name&gt;</code>, DNS name resolution, better isolation, standard way of making docker network.</p>
+1) <strong>Default bridge</strong> ("docker0"): Auto created as an instance of Bridge driver, IP only communication (NO DNS).</p>
+<p>2) <strong>Custom bridge</strong>: User created using <code>docker network create --driver bridge &lt;network_name&gt;</code>, DNS name resolution, better isolation, standard way of making docker network.</p>
 <h2 id="physical-virtual-concept">Physical / virtual concept</h2>
 <ul>
 <li>Interface: A network endpoint visible, type <code>ip a</code>.</li>
@@ -738,14 +738,22 @@
 </blockquote>
 <h2 id="internal-model">Internal model</h2>
 <p><img alt="Pasted image 20260723011120.png" src="../../pic/Pasted%20image%2020260723011120.png" /></p>
-<p>Important notes:
-* Each container has it's own <strong>private IP address (only)</strong>, from bridge networks's subnet (by docker built-in DHCP like). </p>
-<pre><code>* **Container → internet (outbound)**: the container sends traffic from its private IP. Docker's iptables rules do **SNAT** (masquerade) — rewriting the source IP to the **host's** IP before it leaves the machine. To the outside world, it looks like the traffic came from the host, not the container.
-
-* **Internet → container (inbound)**: someone connects to the **host's** public IP on a specific port. Docker's **DNAT** rule (set up by your `-p host_port:container_port` flag) rewrites the destination to the container's private IP:port and forwards it in.
-</code></pre>
+<p>Important notes:</p>
 <ul>
-<li>A container could be inside more than one network at the same time (different IP address per network).</li>
+<li>
+<p>Each container has it's own <strong>private IP address (only)</strong>, from bridge networks's subnet (by docker built-in DHCP like). </p>
+<ul>
+<li>
+<p><strong>Container → internet (outbound)</strong>: the container sends traffic from its private IP. Docker's iptables rules do <strong>SNAT</strong> (masquerade) — rewriting the source IP to the <strong>host's</strong> IP before it leaves the machine. To the outside world, it looks like the traffic came from the host, not the container.</p>
+</li>
+<li>
+<p><strong>Internet → container (inbound)</strong>: someone connects to the <strong>host's</strong> public IP on a specific port. Docker's <strong>DNAT</strong> rule (set up by your <code>-p host_port:container_port</code> flag) rewrites the destination to the container's private IP:port and forwards it in.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>A container could be inside more than one network at the same time (different IP address per network).</p>
+</li>
 </ul>
 
 

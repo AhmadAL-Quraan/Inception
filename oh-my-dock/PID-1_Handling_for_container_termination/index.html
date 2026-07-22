@@ -541,9 +541,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#1-tini" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -552,8 +553,7 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1) tini">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#2-exec-a-command-that-executes-a-process" class="md-nav__link">
@@ -659,9 +659,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#1-tini" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -670,8 +671,7 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1) tini">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#2-exec-a-command-that-executes-a-process" class="md-nav__link">
@@ -714,22 +714,27 @@
      In Docker, a container is defined as <strong>running</strong>, until <code>PID-1</code> terminated.</p>
 <hr />
 <p>We have two main signals to shutdown any container: 
-    1) <code>SIGTERM</code>: A process handler (running it's own way of shutting down)
-    2) <code>SIGKILL</code>: Kernel forces (Kernel forces a process to shutdown/terminate)</p>
+    1) <code>SIGTERM</code>: A process handler (running it's own way of shutting down)</p>
+<pre><code>2) `SIGKILL`: Kernel forces (Kernel forces a process to shutdown/terminate)
+</code></pre>
 <h2 id="problem">Problem</h2>
 <ul>
 <li>Without proper handling of <code>PID-1</code>, if using <code>docker stop &lt;container&gt;</code>:</li>
 </ul>
-<p>1) Kernel delivers <code>SIGTERM</code> to <code>PID-1</code> (a "please stop" request), bash has no handler for this (process running as <code>PID-1</code> doesn't have a shutdown code), so nothing happens, bash keeps running.
-2) Docker's daemon just... waits (default: 10 seconds) this is Docker giving the process a grace period, not the kernel enforcing anything.
-3) After timeout, Docker daemon issues a <code>SIGKILL</code> to <code>PID 1</code> inside this container→ kernel forcibly terminates the process, no cooperation needed, no code in bash runs, it's just gone instantly, and the container now died.</p>
+<p>1) Kernel delivers <code>SIGTERM</code> to <code>PID-1</code> (a "please stop" request), bash has no handler for this (process running as <code>PID-1</code> doesn't have a shutdown code), so nothing happens, bash keeps running.</p>
+<p>2) Docker's daemon just... waits (default: 10 seconds) this is Docker giving the process a grace period, not the kernel enforcing anything.</p>
+<p>3) After timeout, Docker daemon issues a <code>SIGKILL</code> to <code>PID 1</code> inside this container→ kernel forcibly terminates the process, no cooperation needed, no code in bash runs, it's just gone instantly, and the container now died.</p>
 <p><strong>So if it is going to shutdown either way, where is the problem ?</strong></p>
 <blockquote>
 <p>That is right that it is going to shutdown either way, but there is a big difference between forcing a process to shutdown, and letting it running it's own shutdown process.         </p>
 </blockquote>
 <ul>
-<li><strong><code>SIGTERM</code> (handled correctly, avoid errors)</strong>: the process gets to run its <em>own</em> shutdown code first — close network connections properly, finish writing any in-progress data to disk, flush buffers, release locks, close files cleanly — and <em>then</em> exit.</li>
-<li><strong><code>SIGKILL</code>(Not handled correctly, errors could happens)</strong>: the process is yanked out from under itself mid-instruction. No code runs. Whatever it was doing at that exact microsecond just... stops. Nothing gets to finish or clean up.</li>
+<li>
+<p><strong><code>SIGTERM</code> (handled correctly, avoid errors)</strong>: the process gets to run its <em>own</em> shutdown code first — close network connections properly, finish writing any in-progress data to disk, flush buffers, release locks, close files cleanly — and <em>then</em> exit.</p>
+</li>
+<li>
+<p><strong><code>SIGKILL</code>(Not handled correctly, errors could happens)</strong>: the process is yanked out from under itself mid-instruction. No code runs. Whatever it was doing at that exact microsecond just... stops. Nothing gets to finish or clean up.</p>
+</li>
 </ul>
 <blockquote>
 <p>This is important if we running an application/service inside a container, Ex: Nginx , To let it handle it's configurations and save it's state with what ever it has. Make less errors. </p>
@@ -739,7 +744,7 @@
 InnoDB: Starting crash recovery.
 </code></pre></div></p>
 <h2 id="solution">Solution</h2>
-<h2 id="1-tini">1) <code>tini</code></h2>
+<h3 id="1-tini">1) <code>tini</code></h3>
 <p>tiny init system built specifically to solve the exact PID 1 problem but it solves it from a different angle than the <code>exec</code> pattern.</p>
 <blockquote>
 <p><code>tini</code> is a ~2000-line C program whose entire job is to be a <strong>correct, minimal PID 1</strong>. Instead of your real service (or your script) being PID 1 directly, <code>tini</code> sits as PID 1, and your actual application runs as its child (PID 2+).</p>
