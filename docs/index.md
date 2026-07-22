@@ -1,7 +1,7 @@
 # Welcome to Inception
 
 
-The inception project is all about learning **Docker, Docker-compose, Docker network** and how these things are managed, to allow services to talk to each other, in a containerized area.
+The inception project is all about learning **Images, containers, Docker-compose, Docker network, volumes** and how these things are managed, to allow services to talk to each other, in a containerized area.
 
 ## Project layout
 
