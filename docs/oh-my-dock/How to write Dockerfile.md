@@ -1,14 +1,4 @@
-```table-of-contents
-title: 
-style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
-minLevel: 0 # Include headings from the specified level
-maxLevel: 0 # Include headings up to the specified level
-include: 
-exclude: 
-includeLinks: true # Make headings clickable
-hideWhenEmpty: false # Hide TOC if no headings are found
-debugInConsole: false # Print debug info in Obsidian console
-```
+
 
 ## Main commands
 
@@ -17,10 +7,15 @@ is just downloading that filesystem snapshot, nothing more
 
 ---
 
+
 * `RUN`: Executes a command **during the build process** (Image creation, build time), and saves the result as a new layer (filesystem) in the image. `/bin/bash -c` inside it.
+
+
 ---
+
 * `COPY`: Copies files from your **host machine** (build context) into the image. 
 	Ex: `COPY host-machine_fs docker_fs`
+	
 ---
 * `Entrypoint`: defines the command that runs when the container starts, it becomes `PID 1` .
 	* Two forms:

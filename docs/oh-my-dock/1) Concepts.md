@@ -11,9 +11,12 @@
  ```
 
 * **Docker**: It is a container engine that uses the Linux Kernel features like **namespaces** and **control groups**, to create containers on top of an operating system. So you can call it **OS-level virtualization**.
+
 * **Containers**: Object of an image. Isolated process (Not a mini VM or smthing), that has it's own configurations to run a specific application (it's application layer virtualization).
+
 * **Image**: Class or a package, that has the necessary configurations and layers to run a container. It's a **read-only**, immutable template made of layered system (**multiple read-only filesystem layers and configuration files metadata**), not a typical file that you can read.
-* **Dockerfile**: Commands, script, text-based doc, that it's used to make an image. See [[How_to_write_Dockerfile]] .
+
+* **Dockerfile**: Commands, script, text-based doc, that it's used to make an image. See [[How to write Dockerfile]] .
 
 ```
 Dockerfile ---> image ---> container
@@ -34,7 +37,9 @@ docker-compose up  → builds/starts ALL of them at once, wired together
 ```
 
 * **Docker volumes**: the preferred and safest mechanism for persisting data generated and used by Docker containers, **Managed by Dockerd itself**. Because containers are ephemeral by nature, any data written to their internal storage layers is permanently lost if the container is deleted. Volumes solve this by storing data outside the container's standard file-system in a host directory completely managed by Docker.
+
 * **Docker registry**: A centralized location where images are uploaded to, it could be public or private. Ex: [DockerHub](https://hub.docker.com/)
+
 * **Docker networks**: A virtual network config, allows independent containers to talk to each other.
 
 ## Image internals concepts
@@ -50,13 +55,16 @@ Explanation:
 	- `TAG`: A custom, human-readable identifier that's typically used to identify different versions or variants of an image. If no tag is specified, `latest` is used by default.
 	Ex: `docker.io/library/nginx:latest` -> `docker.io`: Host, `PATH`: namespace: library, Repo: nginx, tag: latest.
 
+
 > If you have an image from one syllabus only, Ex: `debian:bookworm-slim`, **debian** is the image name and there is no **namespace** in this case, because debian is an official image provided by docker hub and the maintainers of this image.
 
 
 
-- **Image layers / Union filesystem (OverlayFS)**: An image isn't one blob, it's a stack of read-only layers (Filesystems on top of each other), one per **Dockerfile** instruction (`FROM`, `RUN`, `COPY`, etc.) see [here](https://docs.docker.com/reference/dockerfile/), also [[How_to_write_Dockerfile]]. Docker merges them into a single view using a union file-system. This is _why_ **builds cache**: if a layer's instruction and its inputs haven't changed, Docker reuses the cached layer instead of rebuilding it. I can see the Image layer throw `docker image histroy`,[See more](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/), Also: [Understanding_Docker_File-System_Resources_and_chroot.md](Understanding_Docker_File-System_Resources_and_chroot.md) .
+- **Image layers / Union filesystem (OverlayFS)**: An image isn't one blob, it's a stack of read-only layers (Filesystems on top of each other), one per **Dockerfile** instruction (`FROM`, `RUN`, `COPY`, etc.) see [here](https://docs.docker.com/reference/dockerfile/), also [[How to write Dockerfile]]. Docker merges them into a single view using a union file-system. This is _why_ **builds cache**: if a layer's instruction and its inputs haven't changed, Docker reuses the cached layer instead of rebuilding it. I can see the Image layer throw `docker image histroy`,[See more](https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/), Also: [[Understanding_Docker_File-System_Resources_and_chroot.md]] .
+
 - **Build cache**: Docker builds top-down and reuses any layer whose instruction + [context](https://docs.docker.com/build/concepts/context/#what-is-a-build-context) hasn't changed since the last build. This is why you `COPY package.json` and run `npm install` _before_ copying the rest of your source code, dependency layers stay cached even when your app code changes.
-- **Multi-stage build**: A **Dockerfile** with multiple `FROM` statements, where you build/compile in one stage and copy only the final artifact into a slim final stage. Keeps final images small — build tools never ship in production, see [[How_to_write_Dockerfile#Multi-stage pattern|here]]
+
+- **Multi-stage build**: A **Dockerfile** with multiple `FROM` statements, where you build/compile in one stage and copy only the final artifact into a slim final stage. Keeps final images small — build tools never ship in production, see [[How to write Dockerfile#Multi-stage pattern|here]]
 - **.dockerignore**: Same idea as `.gitignore`, excludes files from the build context sent to the daemon (keeps builds fast, avoids leaking secrets/`.git`/`node_modules` into the image).
 
 ## Container lifecycle & process model
@@ -68,12 +76,15 @@ Explanation:
 
 ## Networking
 
-- **Bridge network**: Docker's default network driver, creates a **private virtual network** on the host, containers get internal IPs, and Docker's embedded DNS resolves other containers by service/container name. This is what docker-compose gives you automatically.
+
+- **Bridge network**: Docker's default network driver, creates a **private virtual network** on the host, containers get internal IPs, and Docker's embedded DNS resolves other containers by service/container name. This is what docker-compose gives you automatically. [[Docker network]] for more explanation.
+
 - **Bind mount vs (named) volume**: A **bind mount** maps an exact host path into the container (`-v /home/user/data:/var/data`), you control the host path directly. A **named volume** (`-v db_data:/var/lib/mysql`) is managed entirely by Docker under `/var/lib/docker/volumes/`, and is the more **portable/recommended** option. Inception typically requires named volumes bound to a specific host path (`/home/<login>/data/...`). see more [[Docker_Storage_Options_Comparison]]
 
 ## Registry-adjacent
 
 - **Image tag vs digest**: A tag (`nginx:1.25`) custom, human-readable label used to identify a specific version, variant, or release of a Docker image. A **digest** (`nginx@sha256:...`) is an immutable content hash, always points to the exact same bytes. Digests matter for reproducibility/security; tags are convenience.
+
 - **`docker context`**: Lets the Docker CLI target a different daemon (local, remote host, or a different Docker Desktop VM) without reconfiguring everything — useful once you're managing more than one Docker environment.
 
 

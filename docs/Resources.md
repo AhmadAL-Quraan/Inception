@@ -6,8 +6,8 @@
 
 - [Best Github repo from a student at 42 explaining inception](https://github.com/azedineouhadou/inception-42)
 
-- [WordPress Deployment with NGINX, PHP-FPM and MariaDB using Docker Compose](https://medium.com/swlh/wordpress-deployment-with-nginx-php-fpm-and-mariadb-using-docker-compose-55f59e5c1a)
 
+- [tutorial: Run WordPress in a container using Docker Compose](https://community.hetzner.com/tutorials/run-wordpress-in-a-container-using-docker-compose)
 
 ## Docker
 

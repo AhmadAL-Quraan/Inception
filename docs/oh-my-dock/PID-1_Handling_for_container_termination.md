@@ -9,6 +9,7 @@
 	 
 We have two main signals to shutdown any container: 
 	1) `SIGTERM`: A process handler (running it's own way of shutting down)
+	
 	2) `SIGKILL`: Kernel forces (Kernel forces a process to shutdown/terminate)
 
 ## Problem 
@@ -16,7 +17,9 @@ We have two main signals to shutdown any container:
 * Without proper handling of `PID-1`, if using `docker stop <container>`:
 
 1) Kernel delivers `SIGTERM` to `PID-1` (a "please stop" request), bash has no handler for this (process running as `PID-1` doesn't have a shutdown code), so nothing happens, bash keeps running.
+
 2) Docker's daemon just... waits (default: 10 seconds) this is Docker giving the process a grace period, not the kernel enforcing anything.
+
 3) After timeout, Docker daemon issues a `SIGKILL` to `PID 1` inside this container→ kernel forcibly terminates the process, no cooperation needed, no code in bash runs, it's just gone instantly, and the container now died.
 
 **So if it is going to shutdown either way, where is the problem ?**
@@ -24,6 +27,7 @@ We have two main signals to shutdown any container:
 > That is right that it is going to shutdown either way, but there is a big difference between forcing a process to shutdown, and letting it running it's own shutdown process.         
 	
 - **`SIGTERM` (handled correctly, avoid errors)**: the process gets to run its _own_ shutdown code first — close network connections properly, finish writing any in-progress data to disk, flush buffers, release locks, close files cleanly — and _then_ exit.
+
 - **`SIGKILL`(Not handled correctly, errors could happens)**: the process is yanked out from under itself mid-instruction. No code runs. Whatever it was doing at that exact microsecond just... stops. Nothing gets to finish or clean up.
 
 > This is important if we running an application/service inside a container, Ex: Nginx , To let it handle it's configurations and save it's state with what ever it has. Make less errors. 
@@ -35,7 +39,7 @@ InnoDB: Starting crash recovery.
 ```
 ## Solution 
 
-## 1) `tini`
+### 1) `tini`
 
 tiny init system built specifically to solve the exact PID 1 problem but it solves it from a different angle than the `exec` pattern.
 
