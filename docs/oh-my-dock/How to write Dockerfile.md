@@ -66,6 +66,11 @@ ENV DB_HOST=mariadb
 Any process running inside the container can read it via `printenv` or `$DB_HOST`.
 
 
+---
+
+* `EXPOSE`: declares that the container listens on the specified network ports at runtime. It does not actually publish the port — you still need to use `-p` or `-P` with `docker run` to do that. So it's more of a documentation thing for people reading the Dockerfile than a functional instruction.
+
+---
 
 > One important security note: Never put passwords in `ENV` — they're visible to anyone who runs `docker inspect` on the image. That's exactly why Inception requires `.env` files and Docker secrets instead.
 
