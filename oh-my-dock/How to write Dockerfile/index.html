@@ -757,6 +757,11 @@ is just downloading that filesystem snapshot, nothing more</li>
 </code></pre></div></li>
 </ul>
 <p>Any process running inside the container can read it via <code>printenv</code> or <code>$DB_HOST</code>.</p>
+<hr />
+<ul>
+<li><code>EXPOSE</code>: declares that the container listens on the specified network ports at runtime. It does not actually publish the port — you still need to use <code>-p</code> or <code>-P</code> with <code>docker run</code> to do that. So it's more of a documentation thing for people reading the Dockerfile than a functional instruction.</li>
+</ul>
+<hr />
 <blockquote>
 <p>One important security note: Never put passwords in <code>ENV</code> — they're visible to anyone who runs <code>docker inspect</code> on the image. That's exactly why Inception requires <code>.env</code> files and Docker secrets instead.</p>
 </blockquote>
