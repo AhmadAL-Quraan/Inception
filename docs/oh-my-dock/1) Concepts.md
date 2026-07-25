@@ -36,7 +36,7 @@ docker-compose.yml → recipe for MULTIPLE containers working together
 docker-compose up  → builds/starts ALL of them at once, wired together
 ```
 
-* **Docker volumes**: the preferred and safest mechanism for persisting data generated and used by Docker containers, **Managed by Dockerd itself**. Because containers are ephemeral by nature, any data written to their internal storage layers is permanently lost if the container is deleted. Volumes solve this by storing data outside the container's standard file-system in a host directory completely managed by Docker.
+* **Docker volumes**: the preferred and safest mechanism for persisting data generated and used by Docker containers, **Managed by Dockerd itself**. Because containers are ephemeral by nature, any data written to their internal storage layers is permanently lost if the container is deleted. Volumes solve this by storing data outside the container's standard file-system in a host directory completely managed by Docker. Know more [[Docker volumes]]
 
 * **Docker registry**: A centralized location where images are uploaded to, it could be public or private. Ex: [DockerHub](https://hub.docker.com/)
 
@@ -70,8 +70,11 @@ Explanation:
 ## Container lifecycle & process model
 
 - **PID 1 in a container**: The first process a container runs (or any Linux system runs) becomes PID 1,  same as `init` on a real Linux boot. This is a big deal for **Inception** project: PID 1 doesn't get default signal handling (Linux kernel forces it to ignore signals), so if your main process doesn't properly handle `SIGTERM`, `docker stop` won't gracefully kill it (it'll hang until forced). This is why some setups use a tiny init wrapper like `tini`. Read [[PID-1_Handling_for_container_termination]] .
+
 - **Container states**: `created` → `running` → (`paused`) → `exited`/`dead`. A stopped container isn't gone, its filesystem and metadata still exist until `docker rm`.
+
 - **Restart policies**: `--restart=on-failure`, `always`, `unless-stopped`. Controls whether Docker auto-restarts a container after it exits or the daemon restarts. Relevant for Inception since services should stay up (`restart: on-failure` or `always` in compose).
+
 - **Foreground vs daemonized process inside a container**: A container exits the moment its PID 1 process exits. This is why you can't just run `service nginx start` inside a container and expect it to stay alive, that command daemonizes and returns immediately, PID 1 exits, container dies. You need the actual binary running in the foreground (e.g. `nginx -g "daemon off;"`, `mysqld_safe`, `php-fpm -F`). This trips up almost everyone on Inception at first.
 
 ## Networking
@@ -79,7 +82,6 @@ Explanation:
 
 - **Bridge network**: Docker's default network driver, creates a **private virtual network** on the host, containers get internal IPs, and Docker's embedded DNS resolves other containers by service/container name. This is what docker-compose gives you automatically. [[Docker network]] for more explanation.
 
-- **Bind mount vs (named) volume**: A **bind mount** maps an exact host path into the container (`-v /home/user/data:/var/data`), you control the host path directly. A **named volume** (`-v db_data:/var/lib/mysql`) is managed entirely by Docker under `/var/lib/docker/volumes/`, and is the more **portable/recommended** option. Inception typically requires named volumes bound to a specific host path (`/home/<login>/data/...`). see more [[Docker_Storage_Options_Comparison]]
 
 ## Registry-adjacent
 

@@ -1,3 +1,4 @@
 secrets
 srcs/.env
 site/
+.obsidian/
