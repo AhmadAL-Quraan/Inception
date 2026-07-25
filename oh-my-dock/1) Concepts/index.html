@@ -480,6 +480,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../Docker%20volumes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker volumes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../Docker_Storage_Options_Comparison/" class="md-nav__link">
         
   
@@ -759,7 +787,7 @@ docker-compose up  → builds/starts ALL of them at once, wired together
 </code></pre></div>
 <ul>
 <li>
-<p><strong>Docker volumes</strong>: the preferred and safest mechanism for persisting data generated and used by Docker containers, <strong>Managed by Dockerd itself</strong>. Because containers are ephemeral by nature, any data written to their internal storage layers is permanently lost if the container is deleted. Volumes solve this by storing data outside the container's standard file-system in a host directory completely managed by Docker.</p>
+<p><strong>Docker volumes</strong>: the preferred and safest mechanism for persisting data generated and used by Docker containers, <strong>Managed by Dockerd itself</strong>. Because containers are ephemeral by nature, any data written to their internal storage layers is permanently lost if the container is deleted. Volumes solve this by storing data outside the container's standard file-system in a host directory completely managed by Docker. Know more <a href="../Docker%20volumes/">Docker volumes</a></p>
 </li>
 <li>
 <p><strong>Docker registry</strong>: A centralized location where images are uploaded to, it could be public or private. Ex: <a href="https://hub.docker.com/">DockerHub</a></p>
@@ -799,19 +827,22 @@ Ex: <code>docker.io/library/nginx:latest</code> -&gt; <code>docker.io</code>: Ho
 </ul>
 <h2 id="container-lifecycle-process-model">Container lifecycle &amp; process model</h2>
 <ul>
-<li><strong>PID 1 in a container</strong>: The first process a container runs (or any Linux system runs) becomes PID 1,  same as <code>init</code> on a real Linux boot. This is a big deal for <strong>Inception</strong> project: PID 1 doesn't get default signal handling (Linux kernel forces it to ignore signals), so if your main process doesn't properly handle <code>SIGTERM</code>, <code>docker stop</code> won't gracefully kill it (it'll hang until forced). This is why some setups use a tiny init wrapper like <code>tini</code>. Read <a href="../PID-1_Handling_for_container_termination/">PID-1_Handling_for_container_termination</a> .</li>
-<li><strong>Container states</strong>: <code>created</code> → <code>running</code> → (<code>paused</code>) → <code>exited</code>/<code>dead</code>. A stopped container isn't gone, its filesystem and metadata still exist until <code>docker rm</code>.</li>
-<li><strong>Restart policies</strong>: <code>--restart=on-failure</code>, <code>always</code>, <code>unless-stopped</code>. Controls whether Docker auto-restarts a container after it exits or the daemon restarts. Relevant for Inception since services should stay up (<code>restart: on-failure</code> or <code>always</code> in compose).</li>
-<li><strong>Foreground vs daemonized process inside a container</strong>: A container exits the moment its PID 1 process exits. This is why you can't just run <code>service nginx start</code> inside a container and expect it to stay alive, that command daemonizes and returns immediately, PID 1 exits, container dies. You need the actual binary running in the foreground (e.g. <code>nginx -g "daemon off;"</code>, <code>mysqld_safe</code>, <code>php-fpm -F</code>). This trips up almost everyone on Inception at first.</li>
+<li>
+<p><strong>PID 1 in a container</strong>: The first process a container runs (or any Linux system runs) becomes PID 1,  same as <code>init</code> on a real Linux boot. This is a big deal for <strong>Inception</strong> project: PID 1 doesn't get default signal handling (Linux kernel forces it to ignore signals), so if your main process doesn't properly handle <code>SIGTERM</code>, <code>docker stop</code> won't gracefully kill it (it'll hang until forced). This is why some setups use a tiny init wrapper like <code>tini</code>. Read <a href="../PID-1_Handling_for_container_termination/">PID-1_Handling_for_container_termination</a> .</p>
+</li>
+<li>
+<p><strong>Container states</strong>: <code>created</code> → <code>running</code> → (<code>paused</code>) → <code>exited</code>/<code>dead</code>. A stopped container isn't gone, its filesystem and metadata still exist until <code>docker rm</code>.</p>
+</li>
+<li>
+<p><strong>Restart policies</strong>: <code>--restart=on-failure</code>, <code>always</code>, <code>unless-stopped</code>. Controls whether Docker auto-restarts a container after it exits or the daemon restarts. Relevant for Inception since services should stay up (<code>restart: on-failure</code> or <code>always</code> in compose).</p>
+</li>
+<li>
+<p><strong>Foreground vs daemonized process inside a container</strong>: A container exits the moment its PID 1 process exits. This is why you can't just run <code>service nginx start</code> inside a container and expect it to stay alive, that command daemonizes and returns immediately, PID 1 exits, container dies. You need the actual binary running in the foreground (e.g. <code>nginx -g "daemon off;"</code>, <code>mysqld_safe</code>, <code>php-fpm -F</code>). This trips up almost everyone on Inception at first.</p>
+</li>
 </ul>
 <h2 id="networking">Networking</h2>
 <ul>
-<li>
-<p><strong>Bridge network</strong>: Docker's default network driver, creates a <strong>private virtual network</strong> on the host, containers get internal IPs, and Docker's embedded DNS resolves other containers by service/container name. This is what docker-compose gives you automatically. <a href="../Docker%20network/">Docker network</a> for more explanation.</p>
-</li>
-<li>
-<p><strong>Bind mount vs (named) volume</strong>: A <strong>bind mount</strong> maps an exact host path into the container (<code>-v /home/user/data:/var/data</code>), you control the host path directly. A <strong>named volume</strong> (<code>-v db_data:/var/lib/mysql</code>) is managed entirely by Docker under <code>/var/lib/docker/volumes/</code>, and is the more <strong>portable/recommended</strong> option. Inception typically requires named volumes bound to a specific host path (<code>/home/&lt;login&gt;/data/...</code>). see more <a href="../Docker_Storage_Options_Comparison/">Docker_Storage_Options_Comparison</a></p>
-</li>
+<li><strong>Bridge network</strong>: Docker's default network driver, creates a <strong>private virtual network</strong> on the host, containers get internal IPs, and Docker's embedded DNS resolves other containers by service/container name. This is what docker-compose gives you automatically. <a href="../Docker%20network/">Docker network</a> for more explanation.</li>
 </ul>
 <h2 id="registry-adjacent">Registry-adjacent</h2>
 <ul>
