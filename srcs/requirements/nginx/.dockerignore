@@ -1,0 +1,12 @@
+.git
+.gitignore
+
+.DS_Store
+*.swp
+*~
+
+*.env
+.env
+secrets/
+
+README.md
