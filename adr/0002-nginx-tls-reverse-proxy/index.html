@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../Docker%20volumes/">
+        <link rel="prev" href="../0001-docker-compose-orchestration/">
       
       
-        <link rel="next" href="../How%20to%20write%20Docker-compose/">
+        <link rel="next" href="../0003-wordpress-php-fpm-separate-container/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>Docker Storage Options Comparison - Inception</title>
+        <title>0002 — NGINX as sole entrypoint, TLS 1.2/1.3 only - Inception</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#0002-nginx-as-sole-entrypoint-tls-1213-only" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -95,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Docker Storage Options Comparison
+              0002 — NGINX as sole entrypoint, TLS 1.2/1.3 only
             
           </span>
         </div>
@@ -269,18 +274,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -301,7 +308,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -319,7 +326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/0000-adr-index/" class="md-nav__link">
+      <a href="../0000-adr-index/" class="md-nav__link">
         
   
   
@@ -347,7 +354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/0001-docker-compose-orchestration/" class="md-nav__link">
+      <a href="../0001-docker-compose-orchestration/" class="md-nav__link">
         
   
   
@@ -372,10 +379,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../adr/0002-nginx-tls-reverse-proxy/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0002 — NGINX as sole entrypoint, TLS 1.2/1.3 only
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -391,6 +425,70 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -403,7 +501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/0003-wordpress-php-fpm-separate-container/" class="md-nav__link">
+      <a href="../0003-wordpress-php-fpm-separate-container/" class="md-nav__link">
         
   
   
@@ -431,7 +529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/0004-mariadb-isolated-container/" class="md-nav__link">
+      <a href="../0004-mariadb-isolated-container/" class="md-nav__link">
         
   
   
@@ -459,7 +557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/0005-env-file-for-configuration/" class="md-nav__link">
+      <a href="../0005-env-file-for-configuration/" class="md-nav__link">
         
   
   
@@ -487,7 +585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/0006-named-volumes-for-persistence/" class="md-nav__link">
+      <a href="../0006-named-volumes-for-persistence/" class="md-nav__link">
         
   
   
@@ -515,7 +613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/0007-custom-domain-via-hosts/" class="md-nav__link">
+      <a href="../0007-custom-domain-via-hosts/" class="md-nav__link">
         
   
   
@@ -543,7 +641,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/0008-custom-dockerfiles-penultimate-stable/" class="md-nav__link">
+      <a href="../0008-custom-dockerfiles-penultimate-stable/" class="md-nav__link">
         
   
   
@@ -575,20 +673,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -609,7 +705,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -627,7 +723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../1%29%20Concepts/" class="md-nav__link">
+      <a href="../../oh-my-dock/1%29%20Concepts/" class="md-nav__link">
         
   
   
@@ -655,7 +751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Docker%20network/" class="md-nav__link">
+      <a href="../../oh-my-dock/Docker%20network/" class="md-nav__link">
         
   
   
@@ -683,7 +779,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Docker%20volumes/" class="md-nav__link">
+      <a href="../../oh-my-dock/Docker%20volumes/" class="md-nav__link">
         
   
   
@@ -708,17 +804,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../oh-my-dock/Docker_Storage_Options_Comparison/" class="md-nav__link">
         
   
   
@@ -734,7 +823,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -747,7 +835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../How%20to%20write%20Docker-compose/" class="md-nav__link">
+      <a href="../../oh-my-dock/How%20to%20write%20Docker-compose/" class="md-nav__link">
         
   
   
@@ -775,7 +863,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../How%20to%20write%20Dockerfile/" class="md-nav__link">
+      <a href="../../oh-my-dock/How%20to%20write%20Dockerfile/" class="md-nav__link">
         
   
   
@@ -803,7 +891,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../PID-1_Handling_for_container_termination/" class="md-nav__link">
+      <a href="../../oh-my-dock/PID-1_Handling_for_container_termination/" class="md-nav__link">
         
   
   
@@ -831,7 +919,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Understanding_Docker_File-System_Resources_and_chroot.md/" class="md-nav__link">
+      <a href="../../oh-my-dock/Understanding_Docker_File-System_Resources_and_chroot.md/" class="md-nav__link">
         
   
   
@@ -876,6 +964,60 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -892,50 +1034,36 @@
 
 
 
-  <h1>Docker Storage Options Comparison</h1>
-
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Storage Feature</th>
-<th style="text-align: left;">Docker Volumes</th>
-<th style="text-align: left;">Bind Mounts</th>
-<th style="text-align: left;">Container Writable Layer</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Managed By</strong></td>
-<td style="text-align: left;">Docker Daemon</td>
-<td style="text-align: left;">User (Host OS)</td>
-<td style="text-align: left;">Container Storage Driver</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Host Location</strong></td>
-<td style="text-align: left;">Docker storage directory</td>
-<td style="text-align: left;">Anywhere on host disk</td>
-<td style="text-align: left;">Tied to container filesystem</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Survives <code>docker stop</code></strong></td>
-<td style="text-align: left;">Yes</td>
-<td style="text-align: left;">Yes</td>
-<td style="text-align: left;">Yes</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Survives <code>docker rm</code></strong></td>
-<td style="text-align: left;">Yes</td>
-<td style="text-align: left;">Yes</td>
-<td style="text-align: left;">No (Data is destroyed)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Best Used For</strong></td>
-<td style="text-align: left;">Production databases, backups</td>
-<td style="text-align: left;">Source code syncing, config sharing</td>
-<td style="text-align: left;">Temporary runtime caches</td>
-</tr>
-</tbody>
-</table>
+<h1 id="0002-nginx-as-sole-entrypoint-tls-1213-only">0002 — NGINX as sole entrypoint, TLS 1.2/1.3 only</h1>
+<h2 id="status">Status</h2>
+<p>Accepted</p>
+<h2 id="context">Context</h2>
+<p>The infrastructure needs a single, secure entrypoint for HTTP(S) traffic.
+Exposing PHP-FPM or MariaDB directly to the outside would violate the
+project's isolation requirements and be an unnecessary attack surface.
+The 42 subject explicitly requires that NGINX be the only container exposing
+a port to the host, and that it accept <strong>only</strong> TLSv1.2/TLSv1.3 connections
+(no plaintext HTTP, no older TLS/SSL versions).</p>
+<h2 id="decision">Decision</h2>
+<p>NGINX is deployed as its own container and is the <strong>only</strong> service with a
+published port on the host (443). It:
+- terminates TLS using a self-signed certificate generated at build/entrypoint
+  time (via <code>openssl</code>) for <code>aqoraan.42.fr</code>
+- restricts <code>ssl_protocols</code> to <code>TLSv1.2 TLSv1.3</code> explicitly in
+  <code>nginx.conf</code>/<code>aqoraan.conf</code>
+- proxies PHP requests to the WordPress container over FastCGI
+  (<code>fastcgi_pass wordpress:9000</code>) instead of serving PHP itself
+- serves static assets directly from a shared volume with WordPress's files</p>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li><strong>Positive:</strong> single, well-defined network boundary; PHP-FPM and MariaDB
+  stay unreachable from outside the Compose network; enforces modern TLS only,
+  satisfying the project's security requirement.</li>
+<li><strong>Negative:</strong> self-signed certs mean browsers show a trust warning — 
+  acceptable for a local/VM-only 42 evaluation context, not production-grade.</li>
+<li><strong>Risk mitigated:</strong> removing older TLS versions closes downgrade-attack
+  paths (e.g. POODLE-style issues tied to SSLv3/TLS1.0/1.1).</li>
+</ul>
 
 
 
