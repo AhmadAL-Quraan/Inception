@@ -1,6 +1,8 @@
 # Welcome to Inception
 
 
+> Note: This doc is for **learning purposes** not "to-the-point" project idea, so there is gonna be a lot in details docker explanations under "oh-my-dock".
+
 The inception project is all about learning **Images, containers, Docker-compose, Docker network, volumes** and how these things are managed, to allow services to talk to each other, in a containerized area.
 
 ## Project layout
@@ -25,6 +27,4 @@ The project consists of main services:
 
   
 
-New to docker ? [start here](oh-my-dock/Start_here.md)
-
-[Main concept](oh-my-dock/main_concept.md)
+[[Concepts]]
