@@ -1,10 +1,10 @@
 services:
-  nginx: 
+  nginx:
     build: ./requirements/nginx
     container_name: nginx
     ports:
       - "443:443"
-    environment: 
+    environment:
       - DOMAIN_NAME=${DOMAIN_NAME}
     volumes:
       - wordpress_data:/var/www/html
@@ -13,15 +13,13 @@ services:
     restart: on-failure
 
 volumes:
-    wordpress_data:
-      driver: local
-      driver_opts:
-        type: none
-        o: bind
-        device: /home/ahmad/data/wordpress
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/ahmad/data/wordpress
 
 networks:
-    inception:
-      driver: bridge
-
-
+  inception:
+    driver: bridge
