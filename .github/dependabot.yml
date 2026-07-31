@@ -1,0 +1,29 @@
+#Look inside every Dockerfile.
+# Check GitHub Actions.
+#Open PRs when updates are available.
+
+version: 2
+
+
+updates:
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: weekly
+
+  # Dockerfiles
+  - package-ecosystem: "docker"
+    directory: "/srcs/requirements/nginx"
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: "docker"
+    directory: "/srcs/requirements/mariadb"
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: "docker"
+    directory: "/srcs/requirements/wordpress"
+    schedule:
+      interval: weekly
