@@ -18,7 +18,7 @@ A quick reference of the most-used Docker commands, grouped by purpose.
 | `docker tag <image> <username>/<image>[:tag]` | Create a new tag for an existing local image (needed before pushing)                |
 | `docker search <term>`                        | Search Docker Hub for images matching a term                                        |
 | `docker image inspect <image>`                | Show low-level metadata about an image (layers, env, entrypoint, etc.)              |
-|                                               |                                                                                     |
+
 
 > **Namespace** is either:
 > - **Your personal username** (e.g. `ahmadq`, whatever you signed up with), or
@@ -28,26 +28,33 @@ A quick reference of the most-used Docker commands, grouped by purpose.
 ## 2. Image & Container Commands
 *Building, running, and managing images/containers day-to-day.*
 
-| Command                                              | Description                                                                  |
-| ---------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `docker build -t <name>[:tag] .`                     | Build an image from a Dockerfile in the current directory                    |
-| `docker images` / `docker image ls`                  | List local images                                                            |
-| `docker rmi <image>`                                 | Remove one or more images                                                    |
-| `docker run <image>`                                 | Create and start a container from an image                                   |
-| `docker run -d --name <name> <image>`                | Run a container in detached (output will be in background) mode also name it |
-| `docker run -it <image> sh`                          | Run interactively with a terminal attached (great for debugging)             |
-| `docker run -p <host_port>:<container_port> <image>` | Map a host port to a container port                                          |
-| `docker run -v <host_path>:<container_path> <image>` | Mount a host directory/volume into the container                             |
-| `docker ps`                                          | List running containers                                                      |
-| `docker ps -a`                                       | List all containers (including stopped ones)                                 |
-| `docker stop <container>`                            | Gracefully stop a running container                                          |
-| `docker start <container>`                           | Start a stopped container, detach mode by default, to make attach use `-a`   |
-| `docker restart <container>`                         | Restart a container                                                          |
-| `docker rm <container>`                              | Remove a stopped container                                                   |
-| `docker exec -it <container> sh`                     | Open a shell inside a running container                                      |
-| `docker cp <container>:<path> <host_path>`           | Copy files between container and host                                        |
-| `docker-compose up -d`                               | Build/start all services defined in `docker-compose.yml`                     |
-| `docker-compose down`                                | Stop and remove containers, networks created by compose                      |
+| Command                                                                                                         | Description                                                                  |
+| --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `docker build -t <name>[:tag] .`                                                                                | Build an image from a Dockerfile in the current directory                    |
+| `docker images` / `docker image ls`                                                                             | List local images                                                            |
+| `docker rmi <image>`                                                                                            | Remove one or more images                                                    |
+| `docker run <image>`                                                                                            | Create and start a container from an image                                   |
+| `docker run -d --name <name> <image>`                                                                           | Run a container in detached (output will be in background) mode also name it |
+| `docker run -it <image> sh`                                                                                     | Run interactively with a terminal attached (great for debugging)             |
+| `docker run -p <host_port>:<container_port> <image>`                                                            | Map a host port to a container port                                          |
+| `docker run -v <host_path>:<container_path> <image>`                                                            | Mount a host directory/volume into the container                             |
+| `docker ps`                                                                                                     | List running containers                                                      |
+| `docker ps -a`                                                                                                  | List all containers (including stopped ones)                                 |
+| `docker stop <container>`                                                                                       | Gracefully stop a running container                                          |
+| `docker start <container>`                                                                                      | Start a stopped container, detach mode by default, to make attach use `-a`   |
+| `docker restart <container>`                                                                                    | Restart a container                                                          |
+| `docker rm <container>`                                                                                         | Remove a stopped container                                                   |
+| `docker exec -it <container> sh`                                                                                | Open a shell inside a running container                                      |
+| `docker cp <container>:<path> <host_path>`                                                                      | Copy files between container and host                                        |
+| `docker-compose up -d`                                                                                          | Build/start all services defined in `docker-compose.yml`                     |
+| `docker-compose down`                                                                                           | Stop and remove containers, networks created by compose                      |
+| `docker network create <my_network>`                                                                            | Create a Basic Custom Network                                                |
+| `docker network create --driver <bridge,overlay,..> my_bridge_net`                                              | Create a Network with a Specific Driver                                      |
+| `docker network create \ --driver bridge \ --subnet 192.168.10.0/24 \ --gateway 192.168.10.1 \ my_advanced_net` | Create a Network with Custom Subnets and Gateways                            |
+| `docker run -d --name web_server --network my_custom_network nginx`                                             | Connect Containers to Your Custom Network                                    |
+| `docker network connect my_custom_network existing_container_name`                                              | Connect for an already running container                                     |
+| `docker volume create my_data`                                                                                  | Create the volume                                                            |
+
 
 ---
 
@@ -71,6 +78,7 @@ A quick reference of the most-used Docker commands, grouped by purpose.
 | `docker volume inspect <volume>`   | Inspect a specific volume                                          |
 | `docker info`                      | Show system-wide Docker daemon info                                |
 | `docker version`                   | Show Docker client and server (daemon) version info                |
+| `docker volume rm my_data`         | Delete a volume                                                    |
 
 ---
 
