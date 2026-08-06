@@ -3,7 +3,14 @@
 
 > Note: This doc is for **learning purposes** not "to-the-point" project idea, so there is gonna be a lot in details docker explanations under "oh-my-dock".
 
+
+
+
 The inception project is all about learning **Images, containers, Docker-compose, Docker network, volumes** and how these things are managed, to allow services to talk to each other, in a containerized area.
+
+
+> Original [repo](https://github.com/AhmadAL-Quraan/Inception)
+
 
 ## Project layout
 
