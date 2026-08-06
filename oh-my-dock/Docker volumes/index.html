@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#there-is-mainly-3-ways-in-docker-to-make-a-persist-volume" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -690,6 +695,24 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker volumes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -706,6 +729,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#there-is-mainly-3-ways-in-docker-to-make-a-persist-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        There is mainly 3 ways in docker to make a persist volume:
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -859,6 +910,116 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/Wordpress%20%2B%20PHP-FPM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wordpress + PHP FPM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -876,6 +1037,25 @@
   
   
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#there-is-mainly-3-ways-in-docker-to-make-a-persist-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        There is mainly 3 ways in docker to make a persist volume:
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -903,20 +1083,27 @@
 </li>
 </ul>
 <p><img alt="" src="../../pic/volumes.png" /></p>
-<p>There is mainly 3 ways in docker to make a persist volume: </p>
-<p>1) Host volumes: you decide <strong>where on the host file system the reference is made</strong>. This is called <strong>Bind mount</strong>.  <code>docker run -v /host/path : /container/path</code></p>
+<hr />
+<h2 id="there-is-mainly-3-ways-in-docker-to-make-a-persist-volume">There is mainly 3 ways in docker to make a persist volume:</h2>
+<p>1) <strong>Host volumes</strong>: you decide <strong>where on the host file system the reference is made</strong>. This is called <strong>Bind mount</strong>.  <code>docker run -v /host/path : /container/path</code></p>
 <p>In docker compose:
 <div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/data:/var/www/html</span>
 </code></pre></div></p>
-<p>2) Anonymous volumes: It's a named volume <strong>without a name</strong> ???? Docker creates it automatically, gives it a random hash-like ID instead of a meaningful name, and you can't easily reference it.</p>
+<p>2) <strong>Anonymous volumes</strong>: It's a named volume <strong>without a name</strong> ???? Docker creates it automatically, gives it a random hash-like ID instead of a meaningful name, and you can't easily reference it.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">var/www/html</span>
 </code></pre></div>
 <blockquote>
 <p>No <code>source:host-path-or-name</code></p>
 </blockquote>
-<p>3) Name volumes: you can <strong>reference</strong> the volume by name. This is what should be used in production.</p>
+<p>3) <strong>Named volumes</strong>: you can <strong>reference</strong> the volume by name. This is what should be used in production. Controlled by docker itself.</p>
+<ul>
+<li>
+<p>Docker command: <code>docker run -d --name my_container -v my_data:/app/data nginx</code></p>
+</li>
+<li>
+<p>In docker compose:
 <div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">&lt;--- It&#39;s made separately in compose</span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">volume_name</span><span class="p p-Indicator">:</span><span class="w"> </span>
 <span class="w">   </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
@@ -924,8 +1111,10 @@
 <span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">nginx</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">volume_name:/var/www/html</span>
-</code></pre></div>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">volume_name:/var/www/html</span><span class="w"> </span><span class="c1"># named_volume:container_dir_path</span>
+</code></pre></div></p>
+</li>
+</ul>
 
 
 

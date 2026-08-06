@@ -947,6 +947,116 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../services/Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../services/Wordpress%20%2B%20PHP-FPM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wordpress + PHP FPM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1081,10 +1191,6 @@
 <td><code>docker image inspect &lt;image&gt;</code></td>
 <td>Show low-level metadata about an image (layers, env, entrypoint, etc.)</td>
 </tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
 <blockquote>
@@ -1175,6 +1281,30 @@
 <td><code>docker-compose down</code></td>
 <td>Stop and remove containers, networks created by compose</td>
 </tr>
+<tr>
+<td><code>docker network create &lt;my_network&gt;</code></td>
+<td>Create a Basic Custom Network</td>
+</tr>
+<tr>
+<td><code>docker network create --driver &lt;bridge,overlay,..&gt; my_bridge_net</code></td>
+<td>Create a Network with a Specific Driver</td>
+</tr>
+<tr>
+<td><code>docker network create \ --driver bridge \ --subnet 192.168.10.0/24 \ --gateway 192.168.10.1 \ my_advanced_net</code></td>
+<td>Create a Network with Custom Subnets and Gateways</td>
+</tr>
+<tr>
+<td><code>docker run -d --name web_server --network my_custom_network nginx</code></td>
+<td>Connect Containers to Your Custom Network</td>
+</tr>
+<tr>
+<td><code>docker network connect my_custom_network existing_container_name</code></td>
+<td>Connect for an already running container</td>
+</tr>
+<tr>
+<td><code>docker volume create my_data</code></td>
+<td>Create the volume</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -1247,6 +1377,10 @@
 <tr>
 <td><code>docker version</code></td>
 <td>Show Docker client and server (daemon) version info</td>
+</tr>
+<tr>
+<td><code>docker volume rm my_data</code></td>
+<td>Delete a volume</td>
 </tr>
 </tbody>
 </table>
