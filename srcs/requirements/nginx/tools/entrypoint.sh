@@ -16,13 +16,13 @@ if [ ! -f /etc/nginx/ssl/public.pem ]; then
 fi
 
 
-# Nginx can't read env variables directly
-# Substitue {DOMAIN NAME} Before starting nginx.conf
-if  ! id nginx >/dev/null 2>&1 ; then 
+if [ ! id nginx >/dev/null 2>&1 ]; then 
 	groupadd -r nginx
 	useradd -r -g nginx nginx 
 fi
 
+# Nginx can't read env variables directly
+# Substitue {DOMAIN NAME} Before starting nginx.conf
 envsubst '${DOMAIN_NAME}' < /tmp/nginx.conf  > /etc/nginx/nginx.conf
 exec nginx -g "daemon off;"
 
