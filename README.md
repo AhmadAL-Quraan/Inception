@@ -13,9 +13,8 @@
   <img src="https://img.shields.io/badge/Editor-Neovim-green">
 <div align="center">
 
-[![Test stack workflow - CI](https://github.com/AhmadAL-Quraan/Inception/actions/workflows/test-stack.yml/badge.svg)](https://github.com/AhmadAL-Quraan/Inception/actions/workflows/test-stack.yml)
-
-[![Test linting workflow - CI](https://github.com/AhmadAL-Quraan/Inception/actions/workflows/ci.yml/badge.svg)](https://github.com/AhmadAL-Quraan/Inception/actions/workflows/ci.yml)
+[![Integration Test](https://github.com/AhmadAL-Quraan/Inception/actions/workflows/test-stack.yml/badge.svg)](https://github.com/AhmadAL-Quraan/Inception/actions/workflows/test-stack.yml)
+[![Lint & Build](https://github.com/AhmadAL-Quraan/Inception/actions/workflows/Build-lint_checks.yml/badge.svg)](https://github.com/AhmadAL-Quraan/Inception/actions/workflows/Build-lint_checks.yml)
 </div>
 </p>
 
@@ -27,6 +26,11 @@
 </div>
 
 
+## Workflow
+
+Two main workflows: 
+1) `Build-lint_check` workflow: fast, lightweight, catches syntax/style/build-time issues (lint + build images individually)
+2) `test-stack.yml` workflow: slower, catches actual runtime/integration test/issues (containers starting, staying healthy, serving real traffic), and how they integrate together.
 
 ## Release Signing
 
