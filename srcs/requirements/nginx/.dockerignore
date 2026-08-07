@@ -1,12 +1,7 @@
 .git
 .gitignore
-
+.dockerignore
+**/*.md
 .DS_Store
 *.swp
 *~
-
-*.env
-.env
-secrets/
-
-README.md

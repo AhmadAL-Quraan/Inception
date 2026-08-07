@@ -1,12 +1,14 @@
 COMPOSE_FILE=docker compose -f srcs/docker-compose.yml
+include srcs/.env
+export
 
-USER:=$(shell whoami)
+USER_DATA:= $(DATA_PATH)
 
 all: up
 
 up: 
-	@mkdir -p /home/$(USER)/data/wordpress/
-	@mkdir -p /home/$(USER)/data/mariadb/
+	@mkdir -p $(USER_DATA)/wordpress/
+	@mkdir -p $(USER_DATA)/mariadb/
 	$(COMPOSE_FILE) up  --build -d 
 	@echo 
 	@echo "Finished"
@@ -28,8 +30,8 @@ clean: down
 	docker system prune -af
 
 fclean: clean
-	sudo rm -rf /home/$(USER)/data/mariadb/*
-	sudo rm -rf /home/$(USER)/data/wordpress/*
+	sudo rm -rf $(USER_DATA)/mariadb/*
+	sudo rm -rf $(USER_DATA)/wordpress/*
 
 
 re: fclean all

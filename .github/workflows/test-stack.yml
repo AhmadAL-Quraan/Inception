@@ -1,0 +1,69 @@
+name: Test Inception Stack
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Create fake secrets for CI
+        run: |
+          mkdir -p secrets
+          echo "test_root_pass" > secrets/db_root_password.txt
+          echo "test_db_pass" > secrets/db_password.txt
+          echo "test_admin_pass" > secrets/wp_admin_password.txt
+          echo "test_user_pass" > secrets/wp_user_password.txt
+
+      - name: Create fake .env for CI
+        run: |
+          cat <<EOF > srcs/.env
+          DOMAIN_NAME=localhost
+          MYSQL_DATABASE=wordpress
+          MYSQL_USER=wp_user
+          WP_ADMIN_USER=ci_owner
+          WP_ADMIN_EMAIL=admin@localhost
+          WP_USER=ci_editor
+          WP_USER_EMAIL=editor@localhost
+          DATA_PATH=/home/runner/data
+          EOF
+      - name: Create host data directories
+        run: |
+          mkdir -p /home/runner/data/wordpress
+          mkdir -p /home/runner/data/mariadb
+
+      - name: Build and start the stack
+        run: docker compose -f srcs/docker-compose.yml up --build -d
+
+      - name: Wait for containers to stabilize
+        run: sleep 30
+
+      - name: Check all containers are running
+        run: |
+          docker compose -f srcs/docker-compose.yml ps
+          if [ "$(docker compose -f srcs/docker-compose.yml ps -q | wc -l)" -ne 3 ]; then
+            echo "Not all containers are running"
+            exit 1
+          fi
+
+      - name: Test nginx responds over HTTPS
+        run: |
+          curl -kv --fail https://localhost || (docker compose -f srcs/docker-compose.yml logs && exit 1)
+
+      - name: Test WordPress installed correctly
+        run: |
+          docker exec wordpress wp core is-installed --allow-root --path=/var/www/html
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker compose -f srcs/docker-compose.yml logs
+
+      - name: Tear down
+        if: always()
+        run: docker compose -f srcs/docker-compose.yml down -v
