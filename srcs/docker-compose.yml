@@ -42,8 +42,7 @@ services:
     build: ./requirements/mariadb
     container_name: mariadb
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root --password=\"$$(cat /run/secrets/db_root_password)\" --silent"]
       timeout: 3s
       retries: 5
       start_period: 10s
