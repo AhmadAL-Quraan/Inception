@@ -16,10 +16,6 @@ if [ ! -f /etc/nginx/ssl/public.pem ]; then
 fi
 
 
-if [ ! id nginx >/dev/null 2>&1 ]; then 
-	groupadd -r nginx
-	useradd -r -g nginx nginx 
-fi
 
 # Nginx can't read env variables directly
 # Substitue {DOMAIN NAME} Before starting nginx.conf
