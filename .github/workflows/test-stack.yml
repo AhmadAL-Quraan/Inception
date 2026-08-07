@@ -28,9 +28,9 @@ jobs:
           MYSQL_DATABASE=wordpress
           MYSQL_USER=wp_user
           WP_ADMIN_USER=ci_owner
-          WP_ADMIN_EMAIL=admin@localhost
+          WP_ADMIN_EMAIL=admin@example.com
           WP_USER=ci_editor
-          WP_USER_EMAIL=editor@localhost
+          WP_USER_EMAIL=editor@example.com
           DATA_PATH=/home/runner/data
           EOF
       - name: Create host data directories
