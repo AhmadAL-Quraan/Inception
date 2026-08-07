@@ -22,8 +22,11 @@
 
 <div align="center">
 
-[![Docs](https://img.shields.io/badge/📘_Full_Documentation-0A66C2?style=for-the-badge)](https://ahmadal-quraan.github.io/Inception/)
+[![Docs](https://img.shields.io/badge/Docs-In--depth_Technical_Documentation-0A66C2?style=for-the-badge)](https://ahmadal-quraan.github.io/Inception/)
 </div>
+
+
+---
 
 
 ## Workflow
@@ -32,6 +35,10 @@ Two main workflows:
 1) `Build-lint_check` workflow: fast, lightweight, catches syntax/style/build-time issues (lint + build images individually)
 2) `test-stack.yml` workflow: slower, catches actual runtime/integration test/issues (containers starting, staying healthy, serving real traffic), and how they integrate together.
 
+## Doc
+
+* Reference [USER_DOC](https://github.com/AhmadAL-Quraan/Inception/blob/main/USER_DOC.md) to understand how to use this.
+* Reference [DEV_DOC](https://github.com/AhmadAL-Quraan/Inception/blob/main/DEV_DOC.md) to understand how to develop this + The [In-depth technical doc](https://ahmadal-quraan.github.io/Inception/) for a deeper informations.
 ## Release Signing
 
 Releases are signed via [Sigstore](https://sigstore.dev) using cosign, with identity
