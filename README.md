@@ -28,6 +28,13 @@
 
 ---
 
+* Full archi:
+
+![](./docs/pic/archi.png)
+
+* Working wordpress site !!  
+
+![](./docs/pic/example.png)
 
 ## Workflow
 
