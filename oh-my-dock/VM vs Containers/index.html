@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../Secrets%20vs%20.Env/">
+        <link rel="prev" href="../Understanding_Docker_File-System_Resources_and_chroot.md/">
       
       
-        <link rel="next" href="../Understanding_Docker_File-System_Resources_and_chroot.md/">
+        <link rel="next" href="../../services/Mariadb/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>Things to change - Inception</title>
+        <title>VM vs Containers - Inception</title>
       
     
     
@@ -73,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#vm" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -104,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Things to change
+              VM vs Containers
             
           </span>
         </div>
@@ -882,42 +887,6 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Things to change
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
@@ -937,6 +906,99 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM vs Containers
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM vs Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1105,6 +1167,36 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1120,16 +1212,23 @@
 
 
 
-  <h1>Things to change</h1>
+  <h1>VM vs Containers</h1>
 
+<p><img alt="vm_vs_docker.png" src="../../pic/vm_vs_docker.png" /></p>
+<h2 id="vm">VM</h2>
 <ul>
-<li>
-<p>user from ahmad to aqoraan in the docker compose .</p>
-</li>
-<li>
-<p>.env and secrets to copy them (ignored on git)</p>
-</li>
-<li>Make the directories data in ~/aqoraan/data/wordpress &amp;&amp; mariadb </li>
+<li>Stronger isolation -&gt; Each VM has it's own kernel.</li>
+<li>Heavy on resources (more memory, CPU, ..)</li>
+<li>Full OS.</li>
+<li>There is Type 1 or Type 2.</li>
+<li>Slower to start.</li>
+</ul>
+<h2 id="containers">Containers</h2>
+<ul>
+<li>Process level isolation (weaker than VM) -&gt; share the host kernel.</li>
+<li>Lightweight (mostly holding just one service with it's config).</li>
+<li>No full OS.</li>
+<li>Fast to start</li>
 </ul>
 
 

@@ -12,7 +12,7 @@
         <link rel="prev" href="../PID-1_Handling_for_container_termination/">
       
       
-        <link rel="next" href="../Things%20to%20change/">
+        <link rel="next" href="../Understanding_Docker_File-System_Resources_and_chroot.md/">
       
       
         
@@ -72,6 +72,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#env-plain-environment-variables" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -864,6 +869,24 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Secrets vs .Env
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -881,34 +904,56 @@
 
       </a>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Things%20to%20change/" class="md-nav__link">
         
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Things to change
-  
 
-    
-  </span>
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
-
-      </a>
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#env-plain-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .env: plain environment variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-secrets-file-based-more-restricted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker secrets : file-based, more restricted
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-neither-one-actually-provides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What neither one actually provides
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -929,6 +974,34 @@
     
   
     Understanding Docker File System Resources and chroot.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VM%20vs%20Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM vs Containers
   
 
     
@@ -1105,6 +1178,47 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#env-plain-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .env: plain environment variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-secrets-file-based-more-restricted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker secrets : file-based, more restricted
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-neither-one-actually-provides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What neither one actually provides
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1122,7 +1236,23 @@
 
   <h1>Secrets vs .Env</h1>
 
-<p>The main differ is </p>
+<p>Both store configuration values consumed by your containers, but they differ in <strong>what they're meant for</strong> and <strong>how exposed the values are</strong>.</p>
+<h4 id="env-plain-environment-variables"><code>.env</code>: plain environment variables</h4>
+<ul>
+<li>Values are injected into the container as regular environment variables (<code>environment:</code> in <code>docker-compose.yml</code>)</li>
+<li><strong>Visible</strong> via <code>docker inspect &lt;container&gt;</code>, <code>docker exec &lt;container&gt; env</code>, and inherited by every child process spawned inside that container</li>
+<li>Appropriate for <strong>non-sensitive configuration</strong>: domain names, database names, usernames, values that aren't secret, just configurable</li>
+<li>Required by the subject for exactly this purpose</li>
+</ul>
+<h4 id="docker-secrets-file-based-more-restricted">Docker secrets : file-based, more restricted</h4>
+<ul>
+<li>Values are mounted as <strong>files</strong> inside the container (<code>/run/secrets/&lt;name&gt;</code>), not injected as environment variables</li>
+<li><strong>Not</strong> visible via <code>docker inspect</code> or process environment listings — reduces the number of places a password could accidentally leak (logs, debugging output, <code>docker inspect</code> shared in a bug report)</li>
+<li>Read explicitly by the application at the moment it's needed (<code>cat /run/secrets/db_password</code>), rather than being ambiently available to every process</li>
+<li>Appropriate for <strong>actual sensitive values</strong>: database passwords, WordPress admin/user passwords.</li>
+</ul>
+<h4 id="what-neither-one-actually-provides">What neither one actually provides</h4>
+<p>Worth being upfront about this, since it's easy to overstate: neither <code>.env</code> nor Docker Compose secrets provide real encryption at rest. Anyone with shell access inside the container, or root access to the host, can read both in plaintext. The real value of this separation is <strong>narrower and more specific</strong>: keeping sensitive values out of <code>docker inspect</code> output, out of environment-variable leaks, and — most concretely for this project — out of Git history, since both <code>.env</code> and <code>secrets/</code> are gitignored.</p>
 
 
 
