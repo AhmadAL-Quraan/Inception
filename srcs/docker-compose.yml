@@ -1,3 +1,4 @@
+name: inception
 services:
   nginx:
     build: ./requirements/nginx
