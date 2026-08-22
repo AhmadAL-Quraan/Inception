@@ -43,3 +43,16 @@ services:
     volumes: 
       - volume_name:/var/www/html # named_volume:container_dir_path
 ```
+
+
+## Driver means 
+
+| Driver                | Meaning                                                |
+| --------------------- | ------------------------------------------------------ |
+| `local`               | Store data on the local Docker host  usually on `/var/lib/docker/volumes`                   |
+| `nfs`                 | Store data on an NFS server/network storage            |
+| `sshfs`               | Mount storage from another machine over SSH            |
+| `tmpfs`               | Store data in RAM; disappears when the container stops |
+| `cifs`                | Mount a Windows/SMB network share                      |
+| Cloud/storage drivers | Store data using external storage systems              |
+
