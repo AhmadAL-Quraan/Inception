@@ -5,13 +5,12 @@ on:
     tags:
       - 'v*'
 
-permissions:
-  contents: write   # to create the GitHub Release and upload assets
-  id-token: write    # required for cosign keyless (OIDC) signing
-
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # required to create the GitHub Release and upload assets
+      id-token: write   # required for cosign keyless (OIDC) signing
     steps:
       - name: Checkout
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
